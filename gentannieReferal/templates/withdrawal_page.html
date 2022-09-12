@@ -1,0 +1,16 @@
+
+
+
+<form method='post'>
+    {% csrf_token %}
+    {{form}}
+    <button>submit</button> 
+</form>
+
+<br>
+<h1>{{ acc_type.username }}</h1>
+account type >>
+    <h2>{{ acc_type }}</h2>
+{% comment %} {% for x_type in acc_type %}
+    <h2>{{ x_type.account_type }}</h2>
+{% endfor %} {% endcomment %}

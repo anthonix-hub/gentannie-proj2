@@ -1,0 +1,81 @@
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %} ">
+    <title>marketing_statistics</title>
+</head>
+<body class="bg-gray-600">
+    <!--top nav-->
+    {% include 'gentannie_stats/top_nav.html' %}
+    <!--sidebar nav-->
+    {% comment %} {% include 'gentannie_stats/stat_side.html' %} {% endcomment %}
+    <!-- main content -->
+    <section class="px-3 py-12 mt-12 lg:px-24">
+        <div class="px-24 mt-3 text-3xl font-semibold capitalize text-gray-50 ">
+            marketers analysis
+        </div>
+        {% if mark_001_summed_total %}
+            <div class="p-6 mt-4 bg-gray-700 border border-gray-400 lg:px-32 text-gray-50">
+                <span class="font-semibold capitalize ">
+                    marketer_001 summary
+                </span>
+                <div class='flex gap-10 mt-4'>
+                    <div class="">
+                        Clients total deposits {{mark_001_summed_total}}
+                    </div>
+                    <div class="">
+                        marketers percentage earned {{mark001_percent_earned}}
+                    </div>
+                    <div class="">
+                        {% comment %} marketers count {{client_count}} {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if mark_002_summed_total %}
+            <div class="p-6 mt-4 bg-gray-700 border border-gray-400 lg:px-32 text-gray-50">
+                <span class="font-semibold capitalize ">
+                    marketer_002 summary
+                </span>
+                <div class='flex gap-10 mt-4'>
+                    <div class="">
+                        Clients total deposits {{mark_002_summed_total}}
+                    </div>
+                    <div class="">
+                        marketers percentage earned {{mark002_percent_earned}}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if mark_003_summed_total %}
+            <div class="p-6 mt-4 bg-gray-700 border border-gray-400 lg:px-32 text-gray-50">
+                <span class="font-semibold capitalize ">
+                    marketer_003 summary
+                </span>
+                <div class='flex gap-10 mt-4'>
+                    <div class="">
+                        Clients total deposits {{mark_003_summed_total}}
+                    </div>
+                    <div class="">
+                        marketers percentage earned {{mark003_percent_earned}}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if mark_004_summed_total %}
+            <div class="p-6 mt-4 bg-gray-700 border border-gray-400 lg:px-32 text-gray-50">
+                <span class="font-semibold capitalize ">
+                    marketer_004 summary
+                </span>
+                <div class='flex gap-10 mt-4'>
+                    <div class="">
+                        Clients total deposits {{mark_004_summed_total}}
+                    </div>
+                    <div class="">
+                        marketers percentage earned {{mark004_percent_earned}}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </section>
+</body>

@@ -1,0 +1,20 @@
+
+
+
+
+
+# filtered_data_unlocked.update(Due_date=datetime.now()+ timedelta(days= 30))
+    # filtered_data.update(Due_date=datetime.now()+ timedelta(days= (30*3)))
+    # filtered_data_unlocked.update(Due_date=datetime.now()+ timedelta(days= 30))
+    # supreme_filtered_data.update(Due_date=datetime.now()+ timedelta(days= 30))
+
+    # filtered_data = users_investment_progress.objects.all().filter(deposit_status = comfirmed).filter(account_type=locked)
+    # supreme_filtered_data = users_investment_progress.objects.all().filter(deposit_status = comfirmed).filter(account_type='NONE')
+
+    # ***************
+    # filtered_data.update(Due_date=datetime.now()+ timedelta(days= (30*3)))
+    # supreme_filtered_data.update(Due_date=datetime.now()+ timedelta(days= 30))
+    # ***************
+
+
+

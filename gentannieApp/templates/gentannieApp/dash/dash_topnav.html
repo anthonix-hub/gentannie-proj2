@@ -1,0 +1,61 @@
+{% load static %}
+
+<div class="fixed z-30 flex items-center justify-between w-full h-16 gap-20 -mt-2 bg-gray-800 shadow-2xl md:justify-center md:gap-3">
+    <div class="px-4 cursor-pointer md:hidden " id="ham">
+        <img src="{% static 'img/dash_icons/icons8_menu_50px.png' %} " alt="hamburger" class="h-8">
+    </div>
+    <div class="ml-20 md:ml-80">
+        <nav class="shadow-lg ">
+            <div class="flex gap-20">
+                <div class"grid-cols-12 grid gap-3 mt-2">
+                    <div class="col-span-4 mt-2">
+                        {% for pic in smart_progress_feed %}
+                            {% if pic.withdraw_request == True %}
+                                <a href="comfirm_smart_payment">
+                                    {% comment %} <div class='px-3 py-1 text-xs bg-yellow-500 shadow-md outline-none text-gray-50 rounded-2xl hover:bg-yellow-600 hover:border-b'>
+                                        Please wait, system making payment
+                                    </div> {% endcomment %}
+                                    <button class='px-3 py-1 text-xs bg-yellow-500 shadow-md outline-none text-gray-50 rounded-2xl hover:bg-yellow-600 hover:border-b'>
+                                        comfirm&nbsp{{pic.package}}&nbsppayment
+                                    </button>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-span-4 mt-2">
+                        {% for pic in super_progress_feed %}
+                            {% if pic.withdraw_request == True %}
+                                <a href="comfirm_super_payment">
+                                    <button class='px-3 py-1 text-xs bg-yellow-500 shadow-md outline-none text-gray-50 rounded-2xl hover:bg-yellow-600 hover:border-b'>
+                                        comfirm&nbsp{{pic.package}}&nbsppayment
+                                    </button>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-span-4">
+                        {% for pic in supreme_progress_feed %}
+                            {% if pic.withdraw_request == True %}
+                                <a href="comfirm_supreme_payment">
+                                    <button class='px-3 py-1 text-xs bg-yellow-500 shadow-md outline-none text-gray-50 rounded-2xl hover:bg-yellow-600 hover:border-b'>
+                                        comfirm&nbsp{{pic.package}}&nbsppayment
+                                    </button>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="">
+                    <a href="{% url 'logoutUser' %}">
+                        <ul class="flex gap-4 text-white text-md ">
+                            <li>logout </li>
+                            <li class="flex gap-3 " >
+                                <img src="{% static 'img/dash_icons/shutdown_50px_1.png' %}  " alt="" class="h-6 ">
+                            </li>
+                        </ul>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

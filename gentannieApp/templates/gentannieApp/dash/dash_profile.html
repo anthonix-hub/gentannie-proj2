@@ -1,0 +1,160 @@
+{% load static %}
+{% load tailwind_filters %}
+
+<head>
+    {% include 'gentannieApp/dash/dash_head.html' %}
+    <title>gentannie | dashboard~user_profile</title>
+</head>
+<body class="bg-gray-900">
+    <!-- sidebar -->
+    {% include 'gentannieApp/dash/dash_side.html' %}
+    <!-- sidebar ends -->
+    <div class="md:ml-60 ">
+        <!-- topnav -->
+        {% include 'gentannieApp/dash/dash_topnav.html' %}
+        <!-- / .topnav -->
+    
+        <div class="-mt-8 md:mr-20">
+            <div class="grid-cols-12 px-5 py-10 mt-10 md:p-3 sm:px-10" id="main_content">
+                <div class="lg:px-20">
+                    <div class="gap-2 py-2 pb-4 mt-10 text-lg text-white md:text-2xl md:mt-16 text-semibold">
+                        <div class="flex items-center gap-2 pb-10">
+                            <img src="{% static 'img/dash_icons/profile_50px.png' %} " alt="" class="h-6"> 
+                            User's Profile
+                        </div>
+                        <div class="">
+                          <img src="{% static 'img' %} " alt="">
+                        </div>
+                    </div>
+                    <!--******** profile form fill *******-->
+                    <div class="bg-gray-800">
+                      <div class="-mt-8 ">
+                        <div class="grid-cols-12 px-5 py-10 mt-10 md:p-3 sm:px-10" id="main_content">
+                          <div class="">
+                            <div class="px-10 py-6 bg-gray-400 shadow-2xl">
+                              {% for pic in details %}
+                              <div class="flex justify-end rounded-full">
+                                  <img src='{{pic.profile_pic.url}}' alt="{{profile.user}}" class="object-fill h-24 bg-yellow-400 rounded-full shadow-md">
+                              </div>
+                              {% endfor %}
+                              <form action="" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ rendered_form |crispy }}
+                                <button type="submit" class="px-20 py-1 bg-blue-500 shadow-md outline-none rounded-2xl hover:bg-blue-600 hover:text-gray-50 hover:shadow-2xl {{button_diabler}}">
+                                  {{Display_btn}}
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <!--******** / .profile form fill *******-->
+                    <div class="grid-cols-12 py-3 mx-auto bg-gray-800 border-t border-green-400 rounded-lg">
+                      <div class="col-span-3 py-4 border-b px-">
+                          <div class="flex justify-between grid-cols-6 px-5 text-white lg:px-32">
+                              <div class="col-span-3">
+                                  Username
+                              </div>
+                              <div class="col-span-3">
+                                  {{ user.username }}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-span-3 py-4 border-b px-">
+                          <div class="flex justify-between grid-cols-6 px-5 text-white px- lg:px-32">
+                              <div class="col-span-3">
+                                  Firstname
+                              </div>
+                              <div class="col-span-3">
+                                {{user.first_name}}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-span-3 py-4 border-b px-">
+                        <div class="flex justify-between grid-cols-6 px-5 text-white px- lg:px-32">
+                          <div class="col-span-3">
+                            Lastname
+                          </div>
+                          <div class="col-span-3">
+                            {{user.last_name }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-span-3 py-4 border-b px-">
+                          <div class="flex justify-between grid-cols-6 px-5 text-white px- lg:px-32">
+                              <div class="col-span-3">
+                                  Email
+                              </div>
+                              <div class="col-span-3 text-">
+                                  {{user.email }}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-span-3 py-4 border-b px-">
+                        <div class="flex justify-between grid-cols-6 px-5 text-white lg:px-32">
+                            <div class="col-span-3">
+                                Joined
+                            </div>
+                            <div class="col-span-3">
+                                {{user.date_joined }}
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col-span-3 py-4 border-b px-">
+                        <div class="flex justify-between grid-cols-6 px-5 text-white px- lg:px-32">
+                          <div class="col-span-3">
+                            Phone Number
+                              </div>
+                              <div class="col-span-3">
+                                {% for profile in details %}
+                                  {{profile.phone_number }}
+                                {% endfor %}
+                              </div>
+                            </div>
+                          </div>
+                        <div class="col-span-3 py-4 border-b px-">
+                          <div class="flex justify-between grid-cols-6 px-5 text-white px- lg:px-32">
+                              <div class="col-span-3">
+                                  Account Name
+                              </div>
+                              <div class="col-span-3">
+                                {% for profile in details %}
+                                  {{profile.account_name }}
+                                {% endfor %}
+                              </div>
+                          </div>
+                      </div>                    
+                      <div class="col-span-3 py-4 border-b px-">
+                        <div class="flex justify-between grid-cols-6 px-5 text-white px- lg:px-32">
+                            <div class="col-span-3">
+                                Account Number
+                            </div>
+                            <div class="col-span-3">
+                              {% for profile in details %}
+                                {{profile.account_number }}
+                              {% endfor %}
+                            </div>
+                        </div>
+                    </div>                    
+                      <div class="col-span-3 py-4 border-b px-">
+                        <div class="flex justify-between grid-cols-6 px-5 text-white px- lg:px-32">
+                            <div class="col-span-3">
+                                Bank Name
+                            </div>
+                            <div class="col-span-3">
+                              {% for profile in details %}
+                                {{profile.bank_name }}
+                              {% endfor %}
+                            </div>
+                        </div>
+                    </div>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
+  <script src="{% static 'script.js' %} "></script>

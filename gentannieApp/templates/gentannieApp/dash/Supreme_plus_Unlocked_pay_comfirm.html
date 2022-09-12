@@ -1,0 +1,59 @@
+{% load static %}
+{% load tailwind_filters %}
+
+<head>
+    {% include 'gentannieApp/dash/dash_head.html' %}
+    <title>gentannie |payment_comfirmation</title>
+</head>
+<body class="bg-gray-900">
+
+    <!-- sidebar -->
+    {% include 'gentannieApp/dash/dash_side.html' %}
+    <!-- sidebar ends -->
+    <div class="md:ml-60 ">
+        <!-- topnav -->
+        {% include 'gentannieApp/dash/dash_topnav.html' %}
+        <!-- / .topnav -->
+        
+        <div class="flex grid-cols-12">
+            <div class="px-4 py-10 mt-10 md:p-3 sm:px-10" id="main_content">
+                <div class="">
+                    <div class="py-5 text-lg text-white md:text-2xl ">
+                        <div class="flex items-center gap-2">
+                            <img src="{% static 'img/dash_icons/bank_building_50px_2.png' %} " alt="" class="h-6">
+                            Withdrawal section
+                        </div>
+                    </div>
+                    <div class="grid gap-4 lg:grid-cols-12 md:gap-2">
+                        <div class="px-6 py-6 mx-auto text-xs text-white bg-gray-800 rounded-lg lg:col-span-3 lg:h-48 xl:col-span-5 md:text-sm lg:h-72">
+                            <div class="px-5 py-1 sm:px-16 lg:px-5 ">
+                                <div class="gap-5 ">
+                                    Comfirm that you have received your payment,<br><br>
+                                    <b class="text-red-600">Note:</b> After comfirming that you received payment no complaint can be laid as you indicated that you were paid.
+                                    Always double check your bank statements before comfirming.
+                                </div>
+                            </div><!--/ .withdrawal countdown -->
+                        </div>
+                        <div class="bg-gray-800 rounded-lg lg:col-span-9 xl:col-span-7">
+                            <div class="px-5 py-20 bg-gray-500 rounded-lg">
+                                {% for pic in smart_progress_feed %}
+                                    {% if pic.withdraw_request == True %}
+                                        <form class='' method="post" enctype='multipart/form-data'>{% csrf_token %}
+                                            {{smart_pay_comfirmForm}}
+                                            <button class='px-10 py-1 mx-10 text-lg bg-yellow-500 shadow-md outline-none text-gray-50 rounded-2xl hover:bg-yellow-600 hover:border-b'>
+                                                comfirm&nbsp{{pic.package}}&nbsppayment
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'script.js' %} "></script>
+    
+</body>
+</html>

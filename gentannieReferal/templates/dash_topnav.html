@@ -1,0 +1,23 @@
+{% load static %}
+
+<div class="fixed z-30 flex items-center justify-between w-full h-16 gap-20 -mt-2 bg-gray-800 shadow-2xl md:justify-center md:gap-3">
+    <div class="px-4 cursor-pointer md:hidden" id="ham">
+        <img src="{% static 'img/dash_icons/icons8_menu_50px.png' %} " alt="hamburger" class="h-8">
+    </div>
+    <div class="ml-60 ">
+        <nav class="shadow-lg ">
+            <ul class="flex gap-4 text-white text-md ">
+                <li>logout </li>
+                <li class="flex gap-3 " >
+                    <a href="{% url 'logoutUser' %}">
+                        <img src="{% static 'img/dash_icons/shutdown_50px_1.png' %}  " alt="" class="h-6 ">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+
+<script src="{% static 'js/script.js' %} "></script>

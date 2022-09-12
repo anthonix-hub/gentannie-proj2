@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>smart_plan | info_page</title>
+</head>
+<!-- head -->
+{% include "gentannieApp/head.html" %}
+
+<!-- / .head -->
+<!-- header -->
+<div>
+{% include "gentannieApp/plans_header.html" %}
+</div>
+<!-- / .header -->
+<body>
+    <!-- <div class=""> -->
+        <div class="mt- px-">
+            <div>
+                Lorem 
+            </div>
+            <!-- plans -->
+            <div class="flex items-center gap-4 px-3 py-2 mt-20 text-2xl text-white capitalize bg-green-300 shadow-2xl lg:px-20 lg:text-3xl" style="ackground-color:#508a00">
+                <img src="{% static 'img/icons/icons8_growing_money.png' %}" class="h-10 p-1 bg-white rounded-full lg:h-14">
+                <div class="">  
+                    smart plan
+                </div>
+            </div>
+            <div class='px-10 mt-10 text-sm lg:px-20'>
+                Un
+            </div>
+            <div class="py-10 mt-20 bg-gray-200 border shadow-2xl lg:px-48">
+                <div class=" accordion accordion-flush" id="accordionFlushExample">
+                    <div class="shadow-md accordion-item" >
+                        <h2 class="bg-green-100 accordion-header" id="flush-headingOne">
+                            <button class=" accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                <div class="text-lg lg:px-8 lg:text-3xl text-bold">
+                                    <img src="{% static 'img' %}" alt="">
+                                    unlocked Smart
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse bg-gray-50" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <ol class="px-2 text-sm text-center text-gray-600 shadow-sm lg:px-10 lg:px-20 lg:text-2xl">
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        bronze 20k monthly ROI 7k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        standard 40k monthly ROI 14k
+                                    </li>
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        premium 60k monthly ROI 21k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        bronze 80k monthly ROI 28k
+                                    </li>
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        super bronze 100k monthly ROI 35k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        silver 120k monthly ROI 42k
+                                    </li>
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        super silver 140k monthly ROI 49k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        Gold 200k monthly ROI 70k
+                                    </li>
+                                </ol>                             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shadow-md accordion-item">
+                        <h2 class="mt-2 bg-green-100 accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                <div class="text-lg lg:px-8 lg:text-3xl text-bold">
+                                    locked Smart
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse bg-gray-50" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <ol class="px-2 text-sm text-center text-gray-600 shadow-sm lg:px-10 lg:px-20 lg:text-2xl">
+                                    <li class="px-10 py-2 bg-green-100 shadow-md" data-toggle="modal" data-target="#exampleModal" >
+                                        <!-- <button> -->
+                                            bronze 20k monthly ROI 7k
+                                        <!-- </button> -->
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        standard 40k monthly ROI 14k
+                                    </li>
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        premium 60k monthly ROI 21k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        bronze 80k monthly ROI 28k
+                                    </li>
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        super bronze 100k monthly ROI 35k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        silver 120k monthly ROI 42k
+                                    </li>
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        super silver 140k monthly ROI 49k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        Gold 200k monthly ROI 70k
+                                    </li>
+                                </ol>                             
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            <!-- / .plans -->
+        </div>
+    </div>
+<footer class="pb-20">
+    <!-- {% include "gentannieApp/footer.html" %} -->
+</footer>
+
+<script src="{% static 'js/script.js' %} "></script>
+<script src="{% static 'js/jquery.min.js' %} "></script>
+<script src="{% static 'js/popper.min.js' %} "></script>
+<script src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js' %} "></script>
+<script src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.js' %} "></script>
+<script src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.bundle.js' %} "></script>

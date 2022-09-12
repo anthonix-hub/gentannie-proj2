@@ -1,0 +1,94 @@
+{% load static %}
+{% load tailwind_filters %}
+
+<head>
+    {% include 'gentannieApp/dash/dash_head.html' %}
+    <title>make_deposit | dashboard~deposit_page</title>
+</head>
+<body class="bg-gray-900">
+    <!-- sidebar -->
+    {% include 'gentannieApp/dash/dash_side.html' %}
+    <!-- sidebar ends -->
+    <div class="md:ml-60 ">
+        <!-- topnav -->
+        {% include 'gentannieApp/dash/dash_topnav.html' %}
+        <!-- / .topnav -->
+
+        <div class="flex grid-cols-12">
+            <div class="px-4 py-10 mt-10 md:p-3 sm:px-10" id="main_content">
+                <div class="">
+                    <div class="py-5 text-lg text-white md:text-2xl ">
+                        <div class="flex items-center gap-2">
+                            <img src=" {% static 'img/dash_icons/add_new_50px.png' %} " alt="" class="h-6">
+                            {% comment %} {% for package_name in Supreme_plus_Locked_withdraw_form %}
+                                {{package_name.plan_name}} Deposit section
+                            {% endfor %} {% endcomment %}
+                                Deposit section
+                        </div>
+                    </div>
+                    <div class="grid gap-4 lg:grid-cols-12 md:gap-2">
+                        <div class="px-6 py-2 mx-auto text-lg text-gray-900 bg-gray-800 rounded-lg lg:col-span-3 lg:h-64 xl:col-span-5 md:text-sm lg:h-full xl:py-32">
+                            <div class="text-lg bg-gray-400 py-12 px-4 shadow-2xl ">
+                                Send payment proof of the plan paid for and wait to be verified. 
+                            </div>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg lg:col-span-9 xl:col-span-7">
+                            <div class="px-5 py-1 bg-gray-400 shadow-md sm:px-16 lg:px-5">
+                               <div class="mt-10 text-white">
+                               <form method= POST enctype='multipart/form-data' action=''>{% csrf_token %}
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-5/6 rounded-l-2xl">
+                                            {{ packform.plan_name |as_crispy_field }}
+                                        </div>
+                                        <div class="w-3/5">
+                                            <label class="text-xs text-gray-800 md:text-sm">Reselect&nbspplan&nbspto&nbspcomfirm&nbspAmount</label>
+                                            <select id="Planselector" class="w-full px-5 py-2 text-lg text-black rounded-r-lg outline-none">
+                                                {% for object in packform.plan_name %}
+                                                    {{object}}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="px-6 py-1 mt-5 text-black bg-gray-200 pb-3x rounded-2xl ">
+                                        <div id="basic" class="colors " style="display:none">Amount &#8358; 60,000</div>
+                                        <div id="standard" class="colors" style="display:none">Amount &#8358; 100,000</div>
+                                        <div id="premium" class="colors" style="display:none">Amount &#8358; 160,000</div>
+                                        <div id="bronze" class="colors" style="display:none">Amount &#8358; 200,000</div>
+                                        <div id="super_bronze" class="colors" style="display:none">Amount &#8358; 360,000</div>
+                                        <div id="silver" class="colors" style="display:none">Amount &#8358; 500,000</div>
+                                        <div id="super_silver" class="colors " style="display:none">Amount &#8358; 1,000,000</div>
+                                        <div id="Gold" class="colors" style="display:none">Amount &#8358; 2,000,000</div>
+                                        <div id="Diamond" class="colors" style="display:none">Amount &#8358; 3,000,000</div>
+                                    </div>
+                                    <div>
+                                        {% comment %} {{ packform.account_type |as_crispy_field }} {% endcomment %}
+                                    </div>
+                                    <div>
+                                        {{ packform.payment_proof |as_crispy_field }}
+                                    </div>
+                                    <div class="justify-center flex">
+                                        <button type="submit" class="px-24 py-1 mt-3 bg-blue-500 rounded-full shadow-lg hover:shadow-2xl hover:bg-blue-600">
+                                            submit 
+                                        </button>
+                                    </div>
+                                </form>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'script.js' %} "></script>   
+    <script src="{% static 'js/jquery.min.js' %} "></script> 
+    <script> 
+    $(function() {
+        $('#Planselector').change(function(){
+            $('.colors').hide();
+            $('#' + $(this).val()).show();
+        });
+    });
+    </script>
+</body>
+</html>

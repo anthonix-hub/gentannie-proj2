@@ -1,0 +1,11 @@
+
+
+<div class="bg-gray-300">
+    <form  method='post' enctype='multipart/form-data' >
+        {% csrf_token %}
+        {{ form }}
+        <button>submit</button>
+        
+        user_id: {{ user.id }}
+    </form>
+</div>

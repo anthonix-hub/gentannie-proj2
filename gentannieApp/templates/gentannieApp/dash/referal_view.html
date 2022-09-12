@@ -1,0 +1,62 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main view </title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body class="mx-4 my-5 bg-gray-300 ">
+    <header class="">
+        <div class="p-2 text-white bg-gray-600 shadow-sm ">
+            <nav class="flex items-center justify-end gap-2 gap-4 mr-48 capitalize text-md sm:h-10 text-bold">
+                <div class="">
+                    <a href="{% url 'index' %}">index</a>
+                </div>  
+                <div class="">
+                    {% comment %} <a href="{% url 'main_view' %}">main_view</a> {% endcomment %}
+                </div>
+                <div class="">
+                    aboutUs
+                </div>
+                <div class="">
+                    <a href="{% url 'logoutUser' %}">logout</a>
+                </div>
+                <div class="">
+                    <a href="{% url 'signup' %}">signup</a>
+                </div>
+            </nav>
+        </div>
+        {% comment %} {% include 'fincapp/header.html' %} {% endcomment %}
+    </header>
+    {% if request.user.is_authenticated %}
+        <div class="grid grid-cols-12">
+            <div class="col-span-9">
+                <div class="text-lg">
+                    <h5> 
+                        your session will expire in {{ request.session }} 
+                    </h5>
+                    <h2>{{ request.user }} currently logged in </h2> 
+                </div>
+            </div>
+            <div class="col-span-3 ">
+                <span> check out your recommended list </span>
+                {% comment %} <a href="{% url 'my_recomms_views' %}"> 
+                    <button class="p-1 text-xs bg-yellow-200 shadow-lg hover:shadow-2xl"> check recommended list </button>
+                </a> {% endcomment %}
+                <h3> recommmended list </h3>
+                <ul>
+                    {% for rec_list in my_recs %}
+                        <li>{{ rec_list.user }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% else %}
+    <h1 class="pb-5 text-2xl "> Annonimouse user not allowed signup please </h1>
+        <a href="{% url 'signup_view' %}"> 
+            <button class="p-2 bg-blue-300 shadow-lg">Create an account with this referal</button>
+        </a>
+    {% endif %}
+
+</body>

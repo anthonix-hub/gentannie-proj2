@@ -1,0 +1,116 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/styles.css' %} ">
+<link rel="stylesheet" href=" {% static 'bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href=" {% static 'bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href=" {% static 'bootstrap-5.0.0-beta2-dist/css/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'css/mbr-additional.css' %} ">
+
+
+<section class="carousel slide cid-saJVNsGsEZ " data-interval="false" id="slider1-0">
+    <div class="full-screen">
+        <div class="mbr-slider slide carousel " data-keyboard="false" data-ride="carousel" data-interval="4000" data-pause="true">
+            <ol class="carousel-indicators">
+                <li data-app-prevent-settings="" data-target="#slider1-0" data-slide-to="0"></li>    
+                <li data-app-prevent-settings="" data-target="#slider1-0" data-slide-to="1"></li>
+                {% comment %} <li data-app-prevent-settings="" data-target="#slider1-0" data-slide-to="2"></li> {% endcomment %}
+                <li data-app-prevent-settings="" data-target="#slider1-0" class=" active" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item slider-fullscreen-image active" data-bg-video-slide="false" style="background-image: url({% static 'img/coins+progressing+taller.jpg' %} );opacity:0.8">
+                    <div class="container container-slide">
+                        <div class="image_wrapper">
+                            <div class="bg-green-400 mbr-overlay" style="opacity: 0.5; background-color: rgb(85, 180, 212);"></div>
+                                <img src="{% static 'images/background2.jpg' %} " alt="" title="">
+                                <div class="carousel-caption justify-content-center">
+                                    <div class="col-10 align-center">
+                                        <h2 class="text-red-600 mbr-fonts-style display-1">
+                                            We are with you all the way.
+                                        </h2>
+                                        <p class="text-black lead mbr-text mbr-fonts-style display-5">
+                                            Help is Available at every step, you are not alone. Make use of all platform to get help when needed.
+                                        </p>
+                                        <div class="flex mbr-section-btn" buttons="0">
+                                            <a class="w-2/5 px-3 mt-10 uppercase shadow shadow-md text-md btn btn-primary display-4 lg:w-2/5" href="{% url 'login' %}">
+                                                login
+                                            </a> 
+                                            <a class="w-2/5 px-3 mt-10 uppercase shadow shadow-md text-md btn btn-white-outline display-4 lg:w-2/5" href="">
+                                                signup
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item slider-fullscreen-image " data-bg-video-slide="false" style="background-image: url('{% static 'img/how-to-grow-your-agri-business.png' %}' );background-position:center;opacity:0.8 ">
+                        <div class="container container-slide">
+                            <div class="image_wrapper">
+                                <div class="mbr-overlay"></div>
+                                <div class="carousel-caption justify-content-center">
+                                    <div class="col-10 align-center">
+                                        <h2 class="text-blue-700 mbr-fonts-style display-1" data-aos="fade-left">You're not an expert?</h2>
+                                        <p class="lead mbr-text mbr-fonts-style display-5">
+                                            No worries Choose from the various selection of Plans and invest now - We got you covered in all your tradings 
+                                        </p>
+                                        <div class="flex mbr-section-btn" buttons="0">
+                                            <a class="w-2/5 px-3 mt-10 uppercase shadow shadow-md text-md btn btn-info display-4 lg:w-2/5" href="{% url 'login' %}">
+                                                login
+                                            </a> 
+                                            <a class="w-2/5 px-3 mt-10 text-center uppercase bg-blue-600 rounded-full shadow shadow-md text-md display-4 lg:w-2/5 hover:bg-blue-700" href="" style="text-decoration: none;">
+                                                <div class="items-center mt-3 text-center text-white">
+                                                    signup
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %} <div class="carousel-item slider-fullscreen-image" data-bg-video-slide="false" style="background-image: url('{% static 'img/caro2.jpeg' %}' );opacity:;position:70%">
+                        <div class="mbr-overlay"></div>
+                            <div class="px-20 py-20 mt-20">
+                                <div class="text-4xl md:text-6xl">
+                                    Gentannie
+                                </div>
+                                    <div class="text-lg text-white md:text-3xl">
+                                        Advancing&nbspagro&nbspeconomy
+                                    </div>
+                                </div>
+                                <div class="carousel-caption justify-content-center">
+                                    <div class="col-10 align-center">
+                                        <div class="text- " data-aos="fade-right">
+                                            <div class="flex mbr-section-btn" buttons="1">
+                                                <a class="w-2/5 px-3 mt-10 uppercase shadow shadow-md text-md btn btn-info display-4 lg:w-2/5" href="{% url 'login' %}">
+                                                    login
+                                                </a> 
+                                                <a class="w-2/5 px-3 mt-10 text-center uppercase bg-blue-600 rounded-full shadow shadow-md text-md display-4 lg:w-2/5 hover:bg-blue-700" href="" style="text-decoration: none;">
+                                                    <div class="items-center mt-3 text-center text-white">
+                                                        signup
+                                                    </div>
+                                                </a>
+                                            </div> {% endcomment %}
+                                            {% comment %} <p class=" lead mbr-text mbr-fonts-style display-5">
+                                                <div class="justify-center block gap-5 text-lg md:text-3xl lg:flex text-gray600">
+                                                    <div class="text-2xl text-green-300 text-bold"> Investment Opportunities</div>
+                                                     <div class="text-2xl text-white text-bold">High Optimal Returns </div> 
+                                                     <div class="text-2xl text-black text-bold">Financial Freedom</div>
+                                                </div>
+                                            </p> {% endcomment %}
+                                        </div>
+                                        <div class="flex mbr-section-btn lg:px-32" buttons="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %} "></script>
+<script src="{% static 'bootstrap/js/bootstrap.js' %} "></script>
+<script src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js' %} "></script>
+<script src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.js' %} "></script>

@@ -1,0 +1,107 @@
+{% load static %}
+{% load humanize %}
+
+<head>
+    {% include 'gentannieApp/dash/dash_head.html' %}
+    <title>gentannie | dashboard~transact_history</title>
+</head>
+<body class="bg-gray-900">
+    <!-- sidebar -->
+    {% include 'gentannieApp/dash/dash_side.html' %}
+    <!-- sidebar ends -->
+    <div class="md:ml-60 ">
+        <!-- topnav -->
+        {% include 'gentannieApp/dash/dash_topnav.html' %}
+        <!-- / .topnav -->
+
+        <div class="-mt-8 md:mr-">
+            <div class="grid-cols-12 px-4 py-10 mt-10 md:p-3 sm:px-10" id="main_content">
+                <div class="lg:px-10">
+                    <div class="py-5 mt-10 text-lg text-white md:text-2xl">
+                        Transaction History
+                        {{ withdraw.user }}
+                    </div>
+                    <div class="mt-3 bg-gray-800 border-t border-green-400 rounded-lg shadow-2xl py-">
+                        <div class="overflow-x-auto text-sm text-gray-200">
+                            <div class="grid grid-cols-5 gap-10 px-8 py-3 border-b border-gray-50 ">
+                                <div class="">
+                                    S/N
+                                </div>
+                                <div class="">
+                                    Amount
+                                </div>
+                                <div class="ml-12 ">
+                                    Status
+                                </div>
+                                <div class="ml-20 ">
+                                    Package
+                                </div>
+                                <div class="ml-32 ">
+                                    Date&nbsp;Created
+                                </div>
+                            </div>
+                            <div class="grid items-center grid-cols-5 gap-10 px-4 px-8 py-1">
+                                {% for record in user_history %}
+                                    <div class="">
+                                        *
+                                    </div>
+                                    <div class="">
+                                        &#8358;{{ record.amount_deposited|intcomma }}
+                                    </div>
+                                    <div class="w-16 ml-10 ">
+                                        <div class="text-xs bg-blue-600 rounded-full ">
+                                            {{ record.deposit_status }}
+                                        </div>
+                                    </div>
+                                    <div class="pr-24 ml-20 text-xs w-">
+                                        {{ record.package }}
+                                    </div>
+                                    <div class="px-4 pl-12 ml-32 w-">
+                                        {{ record.date_created }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-12 text-gray-50">
+                        Withdrawal count 
+                    </div>
+                    <div class="justify-center py-3 mt-3 bg-gray-800 border-t border-green-400 rounded-lg shadow-2xl">
+                        <div class="grid items-center grid-cols-4 gap-1 px-6 py-2">
+                            <div class="flex justify-center text-xs text-gray-50">
+                                S/N
+                            </div>
+                            <div class="flex justify-center text-xs text-gray-50">
+                                withdrawal
+                            </div>
+                            <div class="flex justify-center text-xs text-gray-50">
+                                Count
+                            </div>
+                            <div class="flex justify-center text-xs text-gray-50">
+                                Life&nbsp;span
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-4 gap-1 px-6 border-t">
+                            {% for record in user_history %}
+                                <div class="flex justify-center mt-3 text-xs text-gray-50">
+                                    *
+                                </div>
+                                <div class="flex justify-center text-xs text-gray-50">
+                                    &#8358;{% widthratio record.amount_deposited 1 record.count %}
+                                </div>
+                                <div class="flex justify-center text-xs text-gray-50">
+                                    {{ record.count }}
+                                </div>
+                                <div class="flex justify-center text-xs text-gray-50">
+                                    {{ record.life_span }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'script.js' %} "></script>
+</body>
+</html>

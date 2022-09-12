@@ -1,0 +1,156 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %} ">
+<link rel="stylesheet" href=" {% static 'css/bootstrap.css' %}">
+<link rel="stylesheet" href=" {% static 'bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/mbr-additional.css' %} ">
+<link rel="stylesheet" href="{% static 'bootstrap-5.0.0-beta2-dist/css/bootstrap.css' %} ">
+<link rel="stylesheet" href="{% static 'bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css' %} ">
+
+{% comment %} 
+<div class="mt- px-">
+            <div>
+                Lorem 
+            </div>
+            <!-- plans -->
+            <div class="flex items-center gap-4 px-3 py-2 mt-20 text-2xl text-white capitalize bg-green-300 shadow-2xl lg:px-20 lg:text-3xl" style="ackground-color:#508a00">
+                <img src="{% static 'img/icons/icons8_growing_money.png' %}" class="h-10 p-1 bg-white rounded-full lg:h-14">
+                <div class="">
+                    smart plan
+                </div>
+            </div>
+            <div class='px-10 mt-10 text-sm lg:px-20'>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem repellat repellendus officia cum iure incidunt fugit consectetur nostrum, aut minus provident culpa, odio, dicta perspiciatis dolore atque necessitatibus tempore accusamus.
+            </div>
+            <div class="py-10 mt-20 bg-gray-200 border shadow-2xl lg:px-48">
+                <div class=" accordion accordion-flush" id="accordionFlushExample">
+                    <div class="shadow-md accordion-item" >
+                        <h2 class="bg-green-100 accordion-header" id="flush-headingOne">
+                            <button class=" accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                <div class="text-lg lg:px-8 lg:text-3xl text-bold">
+                                    <img src="{% static 'img' %}" alt="">
+                                    unlocked Smart
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse bg-gray-50" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <ol class="px-2 text-sm text-center text-gray-600 shadow-sm lg:px-10 lg:px-20 lg:text-2xl">
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        bronze 20k monthly ROI 7k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        standard 40k monthly ROI 14k
+                                    </li>
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        premium 60k monthly ROI 21k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        bronze 80k monthly ROI 28k
+                                    </li>
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        super bronze 100k monthly ROI 35k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        silver 120k monthly ROI 42k
+                                    </li>
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        super silver 140k monthly ROI 49k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        Gold 200k monthly ROI 70k
+                                    </li>
+                                </ol>                             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shadow-md accordion-item">
+                        <h2 class="mt-2 bg-green-100 accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                <div class="text-lg lg:px-8 lg:text-3xl text-bold">
+                                    locked Smart
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse bg-gray-50" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <ol class="px-2 text-sm text-center text-gray-600 shadow-sm lg:px-10 lg:px-20 lg:text-2xl">
+                                    <li class="px-10 py-2 bg-green-100 shadow-md" data-toggle="modal" data-target="#exampleModal" >
+                                        <!-- <button> -->
+                                            bronze 20k monthly ROI 7k
+                                        <!-- </button> -->
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        standard 40k monthly ROI 14k
+                                    </li>
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        premium 60k monthly ROI 21k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        bronze 80k monthly ROI 28k
+                                    </li>
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        super bronze 100k monthly ROI 35k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        silver 120k monthly ROI 42k
+                                    </li>
+                                    <li class="px-10 py-2 bg-green-100 shadow-md">
+                                        super silver 140k monthly ROI 49k
+                                    </li>
+                                    <li class="px-10 py-2 shadow-md bg-">
+                                        Gold 200k monthly ROI 70k
+                                    </li>
+                                </ol>                             
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            <!-- / .plans -->
+        </div> {% endcomment %}
+
+
+
+{% include 'gentannieApp/modal.html' %}
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo vertical modaling 
+</button>
+
+<style>  
+.modal.show  {
+  display:flex!important;
+  flex-direction:column;
+  justify-content:center;
+  align-content:center;
+  align-items: flex-start;
+}
+</style>
+
+<script>
+
+$(document).ready(function() {
+ // executes when HTML-Document is loaded and DOM is ready
+console.log("document is ready");
+  
+  
+// document ready  
+});
+
+
+window.onload = function() {
+ // executes when complete page is fully loaded, including all frames, objects and images
+console.log("window is loaded");  
+  
+// window load  
+};
+
+</script>
+
+
+<script src="{% static 'js/script.js' %} "></script>
+{% comment %} <script src="{% static 'js/jquery.min.js' %} "></script> {% endcomment %}
+<script src="{% static 'js/popper.min.js' %} "></script>
+<script src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js' %} "></script>
+<script src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.js' %} "></script>
+{% comment %} <script src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.bundle.js' %} "></script> {% endcomment %}

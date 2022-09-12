@@ -1,0 +1,71 @@
+{% load static %}
+
+
+<head>
+    {% include 'gentannieApp/dash/dash_head.html' %}
+    <title>gentannie | dashboard~notifications</title>
+</head>
+<body class="bg-gray-900">
+    <!-- sidebar -->
+    {% include 'gentannieApp/dash/dash_side.html' %}
+    <!-- sidebar ends -->
+    <div class="md:ml-60 ">
+        <!-- topnav -->
+        {% include 'gentannieApp/dash/dash_topnav.html' %}
+        <!-- / .topnav -->
+    
+        <div class="-mt-8 md:mr-">
+            <div class="grid-cols-12 px-4 py-10 mt-10 md:p-3 sm:px-10" id="main_content">
+                <div class="lg:px-10">
+                    <div class="py-5 mt-10 text-lg text-white md:text-2xl">
+                        Notifications
+                    </div>
+                    <div class="grid-cols-12 mx-auto overflow-x-auto bg-gray-800 border-t border-green-400 rounded-lg shadow-2xl py-">
+                        <div class="gap-3 overflow-x-auto">
+                            <div class="flex justify-between px-2 py-3 text-gray-200 border-b">
+                                    S/N
+                                <div class="px-1 ml-6 text- bg-green-00 w-3/3">
+                                    message
+                                </div>
+                                <div class="w-1/4 px-3 mr-8 text-end lg:px-0 -end">
+                                    Date
+                                </div>
+                            </div>
+                                {% for notice in notice %}
+                                    <div class="flex justify-between px-2 py-6 text-xs text-gray-200 border-b md:text-lg md:gap-10 gap-">
+                                        <div class="gray-700 px- ">
+                                            *
+                                        </div>
+                                        <div class="px-0 ml-6 text-center text-white bg-green-00 w-3/3 md:text-justify">
+                                            {{ notice.message|safe }}
+                                        </div>
+                                        <div class="w-1/4 px-3 mr-8 text-center lg:px-0">
+                                            {{ notice.message_time }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <!--**********************-->
+                                {% for notice in notice2 %}
+                                    <div class="flex justify-between px-2 py-6 text-xs text-gray-200 border-b md:text-lg md:gap-10 gap-">
+                                        <div class="gray-700 px- ">
+                                            *
+                                        </div>
+                                        <div class="px-0 ml-6 text-center text-white bg-green-00 w-3/3 md:text-justify">
+                                            {{ notice.message|safe }}
+                                        </div>
+                                        <div class="w-1/4 px-3 mr-8 text-center lg:px-0">
+                                            {{ notice.sent_date }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <!--**********************-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'script.js' %} "></script>
+</body>
+</html>

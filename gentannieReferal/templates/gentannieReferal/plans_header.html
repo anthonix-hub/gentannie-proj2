@@ -1,0 +1,52 @@
+{% load static %}
+
+<div class="fixed z-30 flex justify-between w-full py-4 text-gray-200 bg-green600" style="background-color:#508a00">
+    <div class="flex justify-between gap-48 px-3 mr" style="text-decoration:none">
+        <div class="">
+            <a href="{% url 'index' %}" class="text-white md:text-2xl" style="text-decoration:none"style="text-decoration:none" class="text-lg text-white">
+                gentannie™
+            </a>
+        </div>
+        <div class="hidden gap-8 md:flex " id="menu">
+            <div class="text-md">
+                <a href="{% url 'index' %}"style="text-decoration:none" class="px-1 py-2 text-lg text-gray-100 hover:bg-en-400 hover:text-">
+                    Home
+                </a>
+            </div>
+            <div class="flex gap-2 text-md text-whte">
+                <div>
+                    <a href="{% url 'plan_info_smart' %}" style="text-decoration:none" class="px-1 py-2 text-lg text-gray-100 hover:bg-en-400 hover:text-">
+                        smart_plan
+                    </a>
+                </div>
+                <div>
+                    <a href="{% url 'plan_info_super'%}" style="text-decoration:none" class="px-1 py-2 text-lg text-gray-100 hover:bg-en-400 hover:text-">
+                        super_plan
+                    </a>
+                </div>
+                <div>
+                    <a href="{% url 'plan_info_supreme'%}" style="text-decoration:none" class="px-1 py-2 text-lg text-gray-100 hover:bg-en-400 hover:text-">
+                        supreme_plan
+                    </a>
+                </div>
+                <div class="text-md ">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'login' %}"style="text-decoration:none" class="px-1 py-2 text-lg text-gray-100 hover:bg-en-400 hover:text-">
+                            Login
+                        </a>
+                    {% else %}
+                        <a href="{% url 'signup' %}"style="text-decoration:none" class="px-1 py-2 text-lg text-gray-100 hover:bg-en-400 hover:text-">
+                            Signup
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="px-4 cursor-pointer lg:hidden" id="ham">
+            <img src="{% static 'img/dash_icons/icons8_menu_50px.png' %} " alt="hamburger" class="h-8">
+        </div>
+    </div>
+</div>
+
+
+<script scr="{% static 'js/script.js' %}"></script>

@@ -1,0 +1,156 @@
+{% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<head>
+    <title> recommmended </title>
+</head>
+<header class="">
+    {% comment %} {% include 'fincapp/header.html' %} {% endcomment %}
+    <header class="">
+        <div class="p-2 text-white bg-gray-600 shadow-sm ">
+            <nav class="flex items-center justify-end gap-2 gap-4 mr-48 capitalize text-md sm:h-10 text-bold">
+                <div class="">
+                    <a href="{% url 'index' %}">index</a>
+                </div>  
+                <div class="">
+                    {% comment %} <a href="{% url 'main_view' %}">main_view</a> {% endcomment %}
+                </div>
+                <div class="">
+                    aboutUs
+                </div>
+                <div class="">
+                    <a href="{% url 'logoutUser' %}">logout</a>
+                </div>
+                <div class="">
+                    <a href="{% url 'signup_view' %}">signup</a>
+                </div>
+            </nav>
+        </div>
+</header>
+<body class="py-10 mx-10">
+    <div class="grid grid-cols-12">
+        <div class="col-span-9">
+            <h1 class='pb-5'>you have:  numbers of persons</h1>
+            <div class="pb-10 ">
+                copy your referral link: 
+                {% for prof in user_profile %}
+                    <a href="/{{prof.code}}" id='copyTarget' class="p-2 text-blue-400 border-2 rounded-lg rounded-r-none outline-none" > 
+                        http://localhost:9002/{{ prof.code }}
+                    </a>
+                {% endfor %}
+                <span id='copyButton' class="p-2 text-lg text-white bg-blue-400 rounded-md rounded-l-none shadow-lg cursor-pointer hover:shadow-2xl hover:text-black hover:bg-blue">
+                    COPY
+                </span>
+            </div><!--************-->
+            <div class="pb-10 ">
+                copy your referral link: 
+                {% for prof in user_profile %}
+                    <a href="signup" id='copyTarget' class="p-2 text-blue-400 border-2 rounded-lg rounded-r-none outline-none" > 
+                        signup
+                    </a>
+                {% endfor %}
+                <span id='copyButton' class="p-2 text-lg text-white bg-blue-400 rounded-md rounded-l-none shadow-lg cursor-pointer hover:shadow-2xl hover:text-black hover:bg-blue">
+                    COPY
+                </span>
+            </div>
+            <span class="text-2xl text-black text-bold">profile <em class="text-lg">username: {{ user }}</em></span>
+            <div class="border-l-4">
+                {% if my_recs %}
+                    <div class="mx-10 text-lg border-l-4 ">
+                            recommmended list 
+                        {% comment %} <h3 class="px-4 pb-2 text-lg"> recommmended list </h3> {% endcomment %}
+                        {% for rec_list in my_recs %}
+                            <ul class="mx-10 text-sm">
+                                <li class="">{{ rec_list.user }}</li>
+                                {% comment %} <li class="">{{ rec_list.user.my_recs.user }}</li> {% endcomment %}
+                                <li class="px-3 text-gray-400">{{ rec_list.code }}</li>
+                                <li class="px-3 text-gray-400">{{ rec_list.created }}</li>
+                            </ul>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    No recommmended user yet
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-span-3">
+            <div class="">
+                <span class="pb-10 text-lg ">
+                    parent: 
+                    {% for info in user_profile %}
+                        {{ info.recommended_by }} |
+                    {% endfor %}
+                </span>
+                <span class="mt-12 text-sm text-gray-500">
+                    <em>you have referred {{ recom_len }} persons.</em>
+                </span>
+            </div>
+            <div class="">
+                <span class="text-lg text-bold">rewards:</span>
+                <span class="">referral balance 
+                    <i class="text-green-400 text-bold">
+                        ${{ recomms_rewards }}
+                    </i>
+                </span>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    document.getElementById("copyButton").addEventListener("click", function() {
+      copyToClipboard(document.getElementById("copyTarget"));
+    });
+
+    function copyToClipboard(elem) {
+	  // create hidden text element, if it doesn't already exist
+    var targetId = "_hiddenCopyText_";
+    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+    var origSelectionStart, origSelectionEnd;
+    if (isInput) {
+        // can just use the original source element for the selection and copy
+        target = elem;
+        origSelectionStart = elem.selectionStart;
+        origSelectionEnd = elem.selectionEnd;
+    } else {
+        // must use a temporary form element for the selection and copy
+        target = document.getElementById(targetId);
+        if (!target) {
+          var target = document.createElement("textarea");
+          target.style.position = "absolute";
+          target.style.left = "-9999px";
+          target.style.top = "0";
+          target.id = targetId;
+          document.body.appendChild(target);
+        }
+        target.textContent = elem.textContent;
+    }
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+
+    // copy the selection
+    var succeed;
+    try {
+    	  succeed = document.execCommand("copy");
+    } catch(e) {
+        succeed = false;
+    }
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
+
+    if (isInput) {
+        // restore prior selection
+        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+    } else {
+        // clear temporary content
+        target.textContent = "";
+    }
+    return succeed;
+  }
+</script>

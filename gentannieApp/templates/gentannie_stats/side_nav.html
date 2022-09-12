@@ -1,0 +1,86 @@
+{% load static %}
+
+
+<div class="fixed z-30 hidden h-screen col-span-4 -ml-32 overflow-y-auto bg-gray-800 border-t shadow-2xl mt-14 sm:mt-0 md:block " id="sideMenu">
+    <div class="py-20 mt-">
+        <ul class="justify-center -mt-16 space-y-4 text-lg space-x-">
+            <li class="h-12 ml-20 text-lg text-green-400 border-b px-14 md:flex hover:text-white">
+                <a class="flex transition duration-500 ease-in-out select-none hover:text-white" href=" ">
+                    &nbsp; gentannie™
+                </a>
+            </li>
+            <li class="h-12 ml-20 text-sm text-gray-400 px-14 md:flex md:items-center hover:text-white">
+                <a class="flex transition duration-500 ease-in-out select-none hover:text-white" href="dashboard">
+                    <span class="h-10 text-2xl text-center duration-700 transform ">
+                        <img src="{% static 'img/dash_icons/dashboard_50px.png' %} " alt="" class="h-6">
+                    </span>
+                    &nbsp; Dashboard
+                </a>
+            </li>
+            <li class="h-12 ml-20 text-sm text-gray-400 px-14 md:flex md:items-center hover:text-white">
+                <a class="flex transition duration-500 ease-in-out select-none hover:text-white " href="userDeposit">
+                    <span class="h-10 text-2xl text-center duration-700 transform ">
+                        <img src="{% static 'img/dash_icons/add_new_50px.png' %} " alt="" class="h-6">
+                    </span>
+                    &nbsp;Deposit
+                </a>
+            </li>
+            <li class="h-12 ml-20 text-sm text-gray-400 px-14 md:flex md:items-center hover:text-white">
+                <a class="flex transition duration-500 ease-in-out select-none hover:text-white " href="user_stats">
+                    <span class="h-10 text-2xl text-center duration-700 transform ">
+                        <img src="{% static 'img/dash_icons/upload_document_50px_2.png' %} " alt="" class="h-6">
+                    </span>
+                    &nbsp; User's details
+                </a>
+            </li>
+            <li class="h-12 ml-20 text-sm text-gray-400 px-14 md:flex md:items-center hover:text-white">
+                <a class="flex transition duration-500 ease-in-out select-none hover:text-white " href=" userWithDrawal ">
+                    <span class="h-10 text-2xl text-center duration-700 transform ">
+                        <img src="{% static 'img/dash_icons/bank_building_50px_2.png' %} " alt="" class="h-6">
+                    </span>
+                    &nbsp; Withdraw Funds
+                </a>
+            </li>
+            <li class="h-12 ml-20 text-sm text-gray-400 px-14 md:flex md:items-center hover:text-white">
+                <a class="flex transition duration-500 ease-in-out select-none hover:text-white " href=" notification ">
+                    <span class="h-10 text-2xl text-center duration-700 transform ">
+                        <img src="{% static 'img/dash_icons/notification_50px.png' %} " alt="" class="h-6">
+                    </span>
+                    &nbsp; Notifications
+                </a>
+            </li>
+            <li class="h-12 ml-20 text-sm text-gray-400 px-14 md:flex md:items-center hover:text-white">
+                <a class="flex transition duration-500 ease-in-out select-none hover:text-white " href=" transact_history ">
+                    <span class="h-10 text-2xl text-center duration-700 transform ">
+                        <img src="{% static 'img/dash_icons/ledger_50px.png' %} " alt="" class="h-6">
+                    </span>
+                    &nbsp; Transaction history
+                </a>
+            </li>
+            <li class="h-12 ml-20 text-sm text-gray-400 px-14 md:flex md:items-center hover:text-white">
+                <a class="flex transition duration-500 ease-in-out select-none hover:text-white " href=" pending_withdraw ">
+                    <span class="h-10 text-2xl text-center duration-700 transform ">
+                        <img src="{% static 'img/dash_icons/icons8_expired_50px.png' %} " alt="" class="h-6">
+                    </span>
+                    &nbsp; Pending withdrawals
+                </a>
+            </li>
+            <li class="h-12 ml-20 text-sm text-gray-400 px-14 md:flex md:items-center hover:text-white">
+                <a class="flex transition duration-500 ease-in-out select-none hover:text-white " href=" pending_deposit ">
+                    <span class="h-10 text-2xl text-center duration-700 transform ">
+                        <img src="{% static 'img/dash_icons/payment_history_50px.png' %} " alt="" class="h-6">
+                    </span>
+                    &nbsp; Pending deposits
+                </a>
+            </li>
+            <li class="h-12 ml-20 text-sm text-gray-400 px-14 md:flex md:items-center hover:text-white">
+                <a class="flex transition duration-500 ease-in-out select-none hover:text-white " href=" dash_profile ">
+                    <span class="h-10 text-2xl text-center duration-700 transform ">
+                        <img src="{% static 'img/dash_icons/profile_50px.png' %} " alt="" class="h-6">
+                    </span>
+                    &nbsp; Profile
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

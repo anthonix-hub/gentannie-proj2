@@ -1,0 +1,47 @@
+{% load static %}
+
+{% include "gentannieApp/dash/dash_head.html" %}
+{% include "gentannieApp/head.html" %}
+
+
+<form action="" method='post' enctype='multipart/form-data' >
+    {% csrf_token %}
+    <div class="p-20 bg-gray-400 ">
+        <p class="block">{{ packform }}</p>
+        {{user.id}}
+    </div>
+    <button type="submit">submit</button>
+    
+</form>
+<div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo vertical modal
+</button>  
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Dead Center Modal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim saepe animi et asperiores a voluptates deserunt velit facilis alias blanditiis minus vero totam sequi quis corporis earum incidunt, dignissimos est?</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/script.js' %} "></script>
+<script src="{% static 'js/jquery.min.js' %} "></script>
+<script src="{% static 'js/popper.min.js' %} "></script>
+<script src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js' %} "></script>
+<script src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.js' %} "></script>
+<script src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.bundle.js' %} "></script>

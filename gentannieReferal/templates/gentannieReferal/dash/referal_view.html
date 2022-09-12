@@ -1,0 +1,63 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main view </title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body class="mx-4 my-5 bg-gray-300 ">
+    <header class="">
+        <div class="p-2 text-white bg-gray-600 shadow-sm ">
+            <nav class="flex items-center justify-end gap-2 gap-4 mr-32 capitalize text-md sm:h-10 text-bold">
+                <div class="">
+                    <a href="{% url 'index' %}">Home</a>
+                </div>  
+                {% if user.is_authenticated %}
+                    <div class="">
+                        <a href="{% url 'dashboard' %}">Dashboard</a>
+                    </div>  
+                {% endif %}
+                <div class="">
+                    {% comment %} <a href="{% url 'main_view' %}">main_view</a> {% endcomment %}
+                </div>
+                    {% comment %} <div class="">
+                        about_Us
+                    </div> {% endcomment %}
+                <div class="">
+                    <a href="{% url 'logoutUser' %}">logout</a>
+                </div>
+                <div class="">
+                    <a href="signup_view">signup</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    {% if request.user.is_authenticated %}
+        <div class="grid grid-cols-12">
+            <div class="col-span-9 px-5 mt-10 ">
+                <div class="text-lg">
+                    {% comment %} <h5> 
+                        your session will expire in {{ request.session }} 
+                    </h5> {% endcomment %}
+                    <h2 class="px-4 py-10 bg- md:text-2xl"><b class="text-lg">
+                    {{ request.user }}
+                    </b> you are currently logged-in </h2> rls
+                </div>
+            </div>
+        </div>
+        <div class="px-10 mt-4 text-2xl bg-">
+                We are sorry something went wrong
+            </div>
+    {% else %}
+    <h1 class="pb-5 text-2xl ">
+        
+    </h1>
+        <a href="/signup_view"> 
+            <button class="p-2 bg-blue-300 shadow-lg">
+                Create an account with this referal
+            </button>
+        </a>
+    {% endif %}
+
+</body>

@@ -1,0 +1,63 @@
+{% load static %}
+{% load tailwind_filters %}
+
+<head>
+    {% include 'gentannieApp/dash/dash_head.html' %}
+    <title>gentannie | dashboard~withdrawal</title>
+</head>
+<body class="bg-gray-900">
+
+    <!-- sidebar -->
+    {% include 'gentannieApp/dash/dash_side.html' %}
+    <!-- sidebar ends -->
+    <div class="md:ml-60 ">
+        <!-- topnav -->
+        {% include 'gentannieApp/dash/dash_topnav.html' %}
+        <!-- / .topnav -->
+        
+        <div class="flex grid-cols-12">
+            <div class="px-4 py-10 mt-10 md:p-3 sm:px-10" id="main_content">
+                <div class="">
+                    <div class="py-5 text-lg text-white md:text-2xl ">
+                        <div class="flex items-center gap-2">
+                            <img src="{% static 'img/dash_icons/bank_building_50px_2.png' %} " alt="" class="h-6">
+                            Withdrawal section
+                        </div>
+                    </div>
+                    <div class="grid gap-4 lg:grid-cols-12 md:gap-2">
+                        <div class="container px-6 py-6 mx-auto text-xs text-white bg-gray-800 rounded-lg lg:col-span-3 lg:h-48 xl:col-span-5 md:text-sm lg:h-72">
+                            Withdrawal is enabled when the countdown timer for the plan choosen has elapsed.
+                            if you have any issues withdrawing please contact an agent for help.<br><br>
+                            Make sure to complete your profile and provide the neccessary account details.
+                            <b>Note:</b> If no account details are submited your withdrawal will be delayed, pending when you provide them
+                        </div>
+                        <div class="bg-gray-800 rounded-lg lg:col-span-9 xl:col-span-7">
+                            <div class="px-5 py-1 sm:px-16 lg:px-5 ">
+                                <div class="flex gap-5 bg-red-400">
+                                    <div class="px-4 text-white">
+                                        Available packages for Withdrawal 
+                                    </div>
+                                </div>
+                            </div><!--/ .withdrawal countdown -->
+                            <div class="gap-2 px-40 mt-5 shadow-2xl block py-12 text-xs ">
+                            {% comment %} <div class="gap-2 px-2 mt-5 shadow-2xl flex py-12 text-xs "> {% endcomment %}
+                                {% for withdraw_page_check in user_progress_feed %}
+                                    <a href="{{withdraw_page_check.plan}}{{withdraw_page_check.package}}_page">
+                                        <div class="px-2 py-5 text-center bg-gray-500 hover:bg-gray-600 hover:text-gray-50 shadow hover:text-xl mt-2 ">
+                                            <span class="text-gray-50  bg-yellow-500 p-2 ">{{withdraw_page_check.id}}</span>
+                                            {{ withdraw_page_check.package }}
+                                            {{ withdraw_page_check.plan }}
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'script.js' %} "></script>
+    
+</body>
+</html>

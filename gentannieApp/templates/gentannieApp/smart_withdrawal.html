@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>smart_withdrawal</title>
+</head>
+<body>
+
+     <div class="">
+        {% for withdrawal_check in user_progress_update %}
+            {{withdrawal_check.package}} 
+            {% if withdrawal_check.deposit_status == 'pending' %}
+                <h3>payment pending </h3>
+            {% else %}
+                {% if user_progress_update %}
+                    {% for date in user_progress_update %}
+                        {% comment %} <div class="text-sm" id="due_date">
+                            {{date.Due_date|date:"M d, Y H:m:s" }}
+                        </div> {% endcomment %}
+                        <div class="block sm:flex">
+                            <div class="px-2 text-xs md:text-sm">
+                                Next withdrawal:
+                            </div>
+                            <div class="text-black text-xs md:text-sm" id="demo{{date.id}}"></div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {{timer_sec}}
+            {% endif %}
+        {% endfor %}
+    </div>
+    <form action="" method="POST">
+         {% csrf_token %}
+         {{form}}
+         <button type="submit">withdraw</button>
+    </form>
+</body>
+</html>

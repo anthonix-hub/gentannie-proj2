@@ -1,0 +1,86 @@
+{% load static %}
+    
+<head>
+    {% include 'gentannieApp/dash/dash_head.html' %}
+    <title>gentannie | dashboard</title>
+</head>
+<body class="bg-gray-900">
+    {% if messages %}
+        <ul class="flex justify-center py-3 text-sm text-center text-blue-900 bg-yellow-200 shadow-2xl">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                    {{ message }}                    
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <!-- sidebar -->
+    {% include 'gentannieApp/dash/dash_side.html' %}
+    <!-- sidebar ends -->
+    <div class="mr-2 md:ml-60 lg:-mt-40">
+        <!-- topnav -->
+        {% include 'gentannieApp/dash/dash_topnav.html' %}
+        <!-- / .topnav -->
+        <div class="flex grid-cols-12 gap-2 mt-2">
+            <!-- main content -->
+            <div class="col-span-8 p-3 mt-10 bg-gray-900" id="main_content">
+                <div class="md:mr md:m">
+                    <div class="px-5 py-5 text-lg text-white md:text-2xl">
+                        Dashboard
+                    </div>
+                    <div class="text-sm bg-gray-400 bg-green-500 border border-transparent rounded-lg shadow-xl px- md:py-2 md:text-md">
+                        <span class="flex justify-end p-2 px-5 text-lg md:justify-end ">
+                            <span class="p-1 text-white bg-gray-800 rounded-full shadow-lg select-none">
+                                {{user}}
+                            </span>
+                        </span>
+                    </div>
+                    <!-- panel_tabs -->
+                    {% include 'gentannieApp/dash/dash_panel_tab.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</div>
+
+
+<script>
+{% comment %} var countDownDate = new Date("Mar 31, 2021 12:00:00").getTime(); {% endcomment %}
+{% for date in user_progress_feed %}
+    var countDownDate{{date.id}} = new Date ("{{date.Due_date|date:'M d, Y H:m:s' }}").getTime()
+
+
+{% comment %} var countDownDate = new document.getElementById('due_date') {% endcomment %}
+{% comment %} console.log(countDownDate{{id}}) {% endcomment %}
+        
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate{{date.id}} - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo{{date.id}}").innerHTML = days + ":d " + hours + ":h "
+  + minutes + ":m " + seconds + ":s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo{{date.id}}").innerHTML = "WITHDRAWAL ENABLED";
+  }
+}, 1000);
+
+{% endfor %}
+</script>
+
+<script src="{% static 'script.js' %} "></script>

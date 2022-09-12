@@ -1,0 +1,51 @@
+{% load tailwind_filters %}
+{% include "gentannieApp/head.html" %}
+
+<body class=" by-gray-50">
+    <div class="bg-gray-">
+        <div class="py-5 shadow-sm" style="background-color:#508a00">
+            <div class="px-10 text-2xl text-gray-100 py-">
+                <span class="text-lg text-gray-300 " >
+                    <a href="{% url 'index'  %}" style="text-decoration: none;" class="text-gray-300" >
+                        <img src="{% static 'img/Gen_Web.png' %}" alt="gentannie" class="h-16">
+                    </a>
+                </span> >> signup
+            </div>
+            <div class="text-2xl text-center text-gray-200 uppercase md:text-3xl">
+                signup page
+            </div>
+        </div>
+        <div class="px-4 pb-20 lg:px-80">
+            <div class="px-10 py-20 mt-10 bg-gray-200 shadow-2xl md:mx-48 md:px-">
+                <form method='post' >
+                    {% csrf_token %}
+                    <div class="md:px-20">
+                      {{ form|crispy }}
+                    </div>
+                    <div class="text-right">
+                      {{ form.error }}
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        {% if form.errors %}
+                            <p class='text-red-400' >
+                                {{form.errors}}  
+                            </p>
+                        {% endif %}
+                    </div>
+                    <div class="py-10 pb-10 -mt-14 ">
+                        <button type="submit" class="px-20 py-2 text-lg bg-yellow-300 rounded-full shadow-md md:px-32 hover:bg-yellow-400 hover:shadow-2xl">
+                            Register
+                        </button>
+                    </div>
+                    <div class="text-center">
+                        Already a registered user? 
+                        <a href="{% url 'login' %}">
+                            Login here
+                        </a>
+                    </div>
+                  <!--<h2><a href="{% url 'password_reset' %}">Forgotten your password? </a></h2>-->
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

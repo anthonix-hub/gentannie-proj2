@@ -1,0 +1,170 @@
+{% load static %}
+{% comment %} {% load mathfilters %} {% endcomment %}
+
+<div class="grid gap-5 p-1 mt-10 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-12">
+    <div class="col-span-1 text-gray-200 transform bg-gray-800 rounded-lg select-none p- lg:col-span-3 sm:col-span-3 hover:scale-y-105 hover:shadow-2xl">
+        <div class="flex items-center gap-20 px-4 py-5 md:justify- mr-">
+            <div class="p- sm:mx-0">
+                <img src="{% static 'img/dash_icons/icons8_wallet_80px.png' %} " class="h-12 px-1 py-1 bg-gray-200 rounded-full">
+            </div>
+            <div class="mx-auto ml-3">
+                <div class="text-sm ">
+                    Invested Capital
+                </div>
+                <div class="text-lg ">
+                    {% for deposit in coin_table %}
+                        <b class="text-gray-300">$</b>{{deposit.amount_deposited}}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div class="col-span-1 text-gray-200 transform bg-gray-800 rounded-lg select-none p- lg:col-span-3 sm:col-span-3 hover:scale-y-105 hover:shadow-2xl">
+        <div class="flex items-center gap-20 px-4 py-5 md:justify-">
+            <div class="py-2 sm:mx-0 ">
+                <img src="{% static 'img/dash_icons/icons8_receipt_80px.png' %} " class="h-12 bg-green-300 rounded-full">
+            </div>
+            <div class="mx-auto ml-3">
+                <div class="text-sm ">
+                    Investment Profit
+                </div>
+                <div class="text-lg">
+                    {% for deposit in coin_table %}
+                        <b class="text-gray-300">$</b>{{ deposit.profit }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-span-1 text-gray-200 transform bg-gray-800 rounded-lg select-none p- lg:col-span-3 sm:col-span-3 hover:scale-y-105 hover:shadow-2xl">
+        <div class="flex items-center gap-20 px-4 py-5 md:justify- mr-">
+            <div class="py-2 sm:mx-0">
+                <img src="{% static 'img/dash_icons/icons8_check_80px.png' %} " class="h-12 bg-green-300 rounded-full">
+            </div>
+            <div class="mx-auto ml-3">
+                <div class="text-sm ">
+                    Avaliable balance 
+                </div>
+                <div class="text-lg">
+                    {% comment %} {% for sum in coin_table%}
+                        <b class="text-gray-300">$</b>{{ sum.profit |add:sum.amount_deposited }}
+                    {% endfor %} {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-span-1 text-gray-200 transform bg-gray-800 rounded-lg select-none p- lg:col-span-3 sm:col-span-3 hover:scale-y-105 hover:shadow-2xl">
+        <div class="flex items-center gap-20 px-4 py-5 md:justify- mr-">
+            <div class="py-2 sm:mx-0">
+                <img src="{% static 'img/dash_icons/icons8_hashtag_activity_feed_80px_2.png' %} " class="h-12 bg-yellow-400 rounded-full">
+            </div>
+            <div class="mx-auto ml-3">
+                <div class="text-sm ">
+                    Account status
+                </div>
+                <div class="text-lg text-blue-500">
+                    {% comment %} {% if deposit_section.status == comfirmed %}
+                        Active
+                    {% else %}
+                        NOt Active
+                    {% endif %} {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--***********-->
+<div class="grid gap-5 p-1 mt-4 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-12">
+    <div class="col-span-1 text-gray-200 transform bg-gray-800 rounded-lg select-none p- lg:col-span-3 sm:col-span-3 hover:scale-y-105 hover:shadow-2xl">
+        <div class="flex items-center gap-20 px-4 py-5 md:justify- mr-">
+            <div class="py-2 sm:mx-0">
+                <img src="{% static 'img/dash_icons/icons8_growing_money_80px.png' %} " class="h-12 bg-green-500 rounded-full">
+            </div>
+            <div class="mx-auto ml-3">
+                <div class="text-sm ">
+                    Current_plan
+                </div>
+                <div class="text-lg uppercase">
+                    {% for deposit in coin_table %}
+                        {{ deposit.package }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-span-1 text-gray-200 transform bg-gray-800 rounded-lg select-none p- lg:col-span-3 sm:col-span-3 hover:scale-y-105 hover:shadow-2xl">
+        <div class="flex items-center gap-20 px-4 py-5 md:justify- mr-">
+            <div class="py-2 sm:mx-0">
+                <img src="{% static 'img/dash_icons/icons8_receive_cash_80px.png' %} " class="h-12 bg-red-500 rounded-full">
+            </div>
+            <div class="mx-auto ml-3">
+                <div class="text-sm ">
+                    Withdrawal_History
+                </div>
+                <div class="flex mt-3 text--600 md:block gap-">
+                    <div class="text-xs text-blue-500">
+                    {% comment %} <a href="{% url 'pending_withdraw' %}">
+                        Comfirmed ~{{comfirmed_withdrawn_num}}
+                    </a> {% endcomment %}
+                    </div>
+                    <div class="text-xs text-yellow-500">
+                    {% comment %} <a href="{% url 'pending_withdraw' %}">
+                        Pending ~{{pending_withdrawn_num}}
+                    </a> {% endcomment %}
+                    </div>
+                    <div class="text-xs text-red-500">
+                    {% comment %} <a href="{% url 'pending_withdraw' %}">
+                        Rejected ~{{rejeted_withdrawn_num}}
+                    </a> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-span-1 text-gray-200 transform bg-gray-800 rounded-lg select-none p- lg:col-span-3 sm:col-span-3 hover:scale-y-105 hover:shadow-2xl">
+        <div class="flex items-center gap-20 px-3 py-5 md:justify- mr-">
+            <div class="py-2 sm:mx-0">
+                <img src="{% static 'img/dash_icons/icons8_data_pending_80px.png' %} " class="h-12 bg-red-500 rounded-full shadow-lg">
+            </div>
+            <div class="mx-auto ml-3">
+                <div class="text-sm ">
+                    Deposit History
+                </div>
+                <div class="flex mt-3 text-yellow-600 md:block gap-">
+                    <div class="text-xs text-blue-500">
+                    {% comment %} <a href="{% url 'pending_deposit' %}">
+                        Comfirmed ~{{comfirmrd_deposit_sum}}
+                    </a> {% endcomment %}
+                    </div>
+                    <div class="text-xs text-yellow-500">
+                    {% comment %} <a href="{% url 'pending_deposit' %}">
+                        Pending ~{{pending_coin_sum}}
+                    </a> {% endcomment %}
+                    </div>
+                    <div class="text-xs text-red-500">
+                    {% comment %} <a href="{% url 'pending_deposit' %}">
+                        Rejected ~{{rejected_coin_sum}}
+                    </a> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-span-1 text-gray-200 transform bg-gray-800 rounded-lg select-none p- lg:col-span-3 sm:col-span-3 hover:scale-y-105 hover:shadow-2xl">
+        <div class="flex items-center gap-20 px-4 py-5 md:justify- mr-">
+            <div class="py-2 sm:mx-0">
+                <img src="{% static 'img/dash_icons/icons8_secure_80px_1.png' %} " alt="" class="h-12 bg-red-300 rounded-full">
+            </div>
+            <div class="mx-auto ml-3">
+                <div class="text-sm ">
+                    User ID
+                </div>
+                <div class="text-lg">
+                    032100{{user.id}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--****-->
+</div>  

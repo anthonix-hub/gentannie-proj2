@@ -1,0 +1,753 @@
+{% load static %}
+{% load tailwind_filters %}
+
+<head>
+    {% include 'gentannieApp/dash/dash_head.html' %}
+    <title>gentannie | smart~withdrawal</title>
+</head>
+<body class="bg-gray-900">
+
+    <!-- sidebar -->
+    {% include 'gentannieApp/dash/dash_side.html' %}
+    <!-- sidebar ends -->
+    <div class="md:ml-60 ">
+        <!-- topnav -->
+        {% include 'gentannieApp/dash/dash_topnav.html' %}
+        <!-- / .topnav -->
+        
+        <div class="flex grid-cols-12">
+            <div class="px-4 py-10 mt-10 md:p-3 sm:px-10" id="main_content">
+                <div class="">
+                    <div class="py-5 text-lg text-white md:text-2xl ">
+                        <div class="flex items-center gap-2">
+                            <img src="{% static 'img/dash_icons/bank_building_50px_2.png' %} " alt="" class="h-6">
+                            Withdrawal section
+                        </div>
+                    </div>
+                    <div class="grid gap-4 lg:grid-cols-12 md:gap-2">
+                        <div class="px-6 py-6 mx-auto text-xs text-white bg-gray-800 rounded-lg lg:col-span-3 lg:h-48 xl:col-span-5 md:text-sm lg:h-72">
+                            <div class="px-5 py-1 sm:px-16 lg:px-5 ">
+                                <div class="flex gap-5 ">
+                                    <div class="text-gray-200">
+                                        {% for withdrawal_check in user_progress_update %}
+                                            {% if withdrawal_check.deposit_status == 'pending' %}
+                                                <h3>Deposit pending pending </h3>
+                                            {% else %}
+                                                {% comment %} {% if user_progress_update %}
+                                                {% endif %} {% endcomment %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% for date in user_progress_update %}
+                                            <div class="flex py-1 mt-10">
+                                                <div class="px-2 text-left text-md md:text-md">
+                                                    Next withdrawal for <b>{{ date.package }} </b>
+                                                </div>
+                                                
+                                                <div class="px-3 py-1 text-sm text-black bg-blue-300 md:text-lg py-300 text-bold rounded-2xl " id="demo{{date.id}}"></div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div><!--/ .withdrawal countdown -->
+                        </div>
+                        <div class="bg-gray-800 rounded-lg lg:col-span-9 xl:col-span-7">
+                            
+                            today is <b>{{today}}</b>
+                            <div class="px-10 py-20 bg-gray-500 rounded-lg">
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                        {% for withdrawal_check in user_progress_update %}
+                                            {% if withdrawal_check.deposit_status == 'comfirmed' %}
+                                                {% if withdrawal_check.Due_date == today %}
+                                                    {{super_withdraw_form}}
+                                                    <button type="submit" class="px-4 py-1 bg-blue-200 shadow-lg rounded-2xl hover:shadow-2xl hover:bg-blue-400">
+                                                        Request {{withdrawal_check.package}}  withdrawal
+                                                    </button> 
+                                                {% else %}
+                                                    <div class="px-10 mt-5">
+                                                        <div class="p-2 px-10 py-1 text-center bg-red-400 shadow-lg select-none rounded-2xl cursor hover:shadow-2xl">
+                                                            {{ withdrawal_check.id }} withdrawal pending
+                                                        </div>
+                                                    </div>
+                                                {% endif %} 
+                                            {% endif %}
+                                    {% endfor %}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'script.js' %} "></script>
+    
+</body>
+</html>
+
+<script>
+<!-- var countDownDate = new Date("Mar 31, 2021 12:00:00").getTime();  -->
+{% for date in user_progress_update %}
+    var countDownDate{{date.id}} = new Date ("{{date.Due_date|date:'M d, Y H:m:s' }}").getTime()
+
+
+{% comment %} var countDownDate = new document.getElementById('due_date') {% endcomment %}
+{% comment %} console.log(countDownDate{{id}}) {% endcomment %}
+        
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate{{date.id}} - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo{{date.id}}").innerHTML = days + ":d " + hours + ":h "
+  + minutes + ":m " + seconds + ":s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo{{date.id}}").innerHTML = "Withdrawal Enabled";
+  }
+}, 1000);
+
+{% endfor %}
+</script>
+{% comment %} ***************************** {% endcomment %}
+
+
+
+
+from django.contrib.admin.options import FORMFIELD_FOR_DBFIELD_DEFAULTS
+from django.core.files.base import File
+from django.db import reset_queries
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import CreateView,UpdateView
+from django.urls import reverse_lazy
+from django.contrib.auth import authenticate,login,logout
+from django.core.mail import message, send_mail
+from django.contrib import messages
+from .models import *
+from django.contrib.auth.forms import UserCreationForm
+from gentannieReferal.models import user_referal
+from .form import *
+from datetime import date, datetime, timedelta,date,timezone
+from time import sleep,thread_time, time
+import time
+import threading
+# from .models import Listings
+
+smart_pack_details = smart.objects.all()
+super_pack_details = smart.objects.all()
+supreme_pack_details = smart.objects.all()
+
+
+def countdown(request):
+    return render(request,'gentannieReferal/countdown_lauch.html',None)
+
+def dashboard(request):
+    user_item_prog = users_investment_progress(user=request.user)
+    user_progress_feed = users_investment_progress.objects.all().filter(user=request.user)
+    
+    users_data = users_investment_progress(user=request.user)
+    total_amount_deposit = users_data
+    print(total_amount_deposit)
+    
+    smart_data = smart.objects.all().filter(username=request.user)
+    super_data = super.objects.all().filter(username=request.user)
+    supreme_data = supreme.objects.all().filter(username=request.user)
+
+    # ********** Referal Section ***********
+    recom_profiles = user_referal.objects.get (user=request.user)
+    my_recs = recom_profiles.get_recommended_profiles()
+
+    recom_len =  len(my_recs)
+    recomms_rewards = recom_len*1000
+
+    # ********** / .Referal Section ***********
+    user_referal_profile = user_referal.objects.filter(user=request.user)
+    pic = users_details.objects.all().filter(username=request.user)
+    smart_progress_feed = users_investment_progress.objects.all().filter(user=request.user).filter(package='smart')
+    super_progress_feed = users_investment_progress.objects.all().filter(user=request.user).filter(package='super')
+    supreme_progress_feed = users_investment_progress.objects.all().filter(user=request.user).filter(package='supreme')
+    context = {
+        'users_data':users_data,
+        'user_progress_feed':user_progress_feed,
+        'recomms_rewards':recomms_rewards,
+        'user_referal_profile':user_referal_profile,
+        'recom_len':recom_len,
+        'smart_data':smart_data,
+        'super_data':super_data,
+        'supreme_data':supreme_data,
+        'pic':pic,
+        'smart_progress_feed':smart_progress_feed,
+        'super_progress_feed':super_progress_feed,
+        'supreme_progress_feed':supreme_progress_feed,
+    }
+    return render(request, 'gentannieReferal/dash/dash_index.html', context)
+
+def Referal_views(request,  *args, **kwargs):
+    code = str(kwargs.get('ref_code'))
+    try:
+        profiles = user_referal.objects.get(code=code)
+        request.session['ref_profile'] = profiles.id
+        print('id', profiles.id)
+    except:
+        pass
+    print('site will espire in ', request.session.get_expiry_date())
+
+    session = request.session.get_expiry_age()
+    context = {
+        'session':session
+    }
+    # return render(request, 'gentannieReferal/dash/referal_view.html', context)
+    return render(request, 'gentannieApp/dash/Referal_page.html', context)
+
+def my_recomms_views(request):
+    recom_profiles = user_referal.objects.get(user=request.user)
+    my_recs = recom_profiles.get_recommended_profiles()
+
+    recom_len =  len(my_recs)
+    recomms_rewards = recom_len*1000
+    # rec_no = my_recs.count()
+    # print(rec_no)
+
+    user_referal_profile = user_referal.objects.filter(user=request.user)
+    # recom_num = recom_profiles.count()
+
+    context = {
+        'recomms_rewards':recomms_rewards,
+        'my_recs':my_recs,
+        'user_referal_profile':user_referal_profile,
+        'recom_len':recom_len,
+    }
+    return render (request, 'gentannieReferal/index2.html', context)
+
+
+# def account_detail(request):feral/dash/deposit.html', context)
+
+# ******** investment plans Views *********
+def deposit_page(request):
+    user_smart_details = users_investment_progress.objects.all().filter(user=request.user).filter(package='smart')
+    user_super_details = users_investment_progress.objects.all().filter(user=request.user).filter(package='super')
+    user_supreme_details = users_investment_progress.objects.all().filter(user=request.user).filter(package='supreme')
+
+    smart_pack_check = smart.objects.all().filter(username=request.user)
+    smart_pack_close = smart_pack_check.values().exists()
+
+    super_pack_check = super.objects.all().filter(username=request.user)
+    super_pack_close = super_pack_check.values().exists()
+
+    supreme_pack_check = supreme.objects.all().filter(username=request.user)
+    supreme_pack_close = supreme_pack_check.values().exists()
+
+
+    context={
+        "user_smart_details":user_smart_details,
+        'smart_pack_check':smart_pack_check,
+        'super_pack_check':super_pack_check,
+        'supreme_pack_check':supreme_pack_check,
+        'smart_pack_close':smart_pack_close,
+        'super_pack_close':super_pack_close,
+        'supreme_pack_close':supreme_pack_close
+        
+    }
+    return render(request, 'gentannieApp/dash/dash_deposit.html',context)
+
+def smart_pack(request):
+    user_pack = smart(username=request.user)
+    if request.method == 'POST':
+        packform = smart_form(request.POST, request.FILES, instance=user_pack)
+        if packform.is_valid():
+            obj = smart()
+            obj.plan_name = packform.cleaned_data['plan_name']
+            obj.account_type = packform.cleaned_data['account_type']
+            obj.payment_proof = packform.cleaned_data['payment_proof']
+            obj.save()
+
+            # print(payment_prof)
+            # print(account_type)
+            # print(plan_name)
+
+            users_investment_progress.objects.filter(user=request.user)
+            users_data = users_investment_progress(user=request.user)
+
+            acc_plan = user_pack.plan_name
+            acc_type = user_pack.account_type
+            uploaded_proof = user_pack.payment_proof
+            acc_plan = user_pack.plan_name
+            pack = user_pack.plan
+
+            if pack ==  'smart':
+                span = '9 months'
+            elif pack ==  'super':
+                span = '9 months'
+            elif pack ==  'supreme':
+                span = '9 months'
+
+            if acc_plan ==  basic:
+                amount_deposit = 20000
+            elif acc_plan == standard:
+                amount_deposit = 40000
+            elif acc_plan == premium:
+                amount_deposit = 60000
+            elif acc_plan ==  bronze:
+                amount_deposit = 80000
+            elif acc_plan == super_bronze:
+                amount_deposit = 100000
+            elif acc_plan == silver:
+                amount_deposit = 120000
+            elif acc_plan == super_silver:
+                amount_deposit = 140000
+            elif acc_plan == Gold:
+                amount_deposit = 200000
+            
+            if acc_type == unlocked:
+                interest = int(amount_deposit) * 0.35
+                time_stamp = timedelta(days = 30)
+            elif acc_type == locked:
+                interest = int(amount_deposit) * 1.2
+                time_stamp = timedelta(days = 30 * 3 ) 
+                
+            future_time = datetime.now() + time_stamp
+                
+            smart_user = smart.objects.filter(username=request.user)
+            # smart_user.update(due_date=future_time)
+
+            smart.objects.update_or_create(username=request.user, amount_deposited = amount_deposit, account_type=acc_type, ROI=interest, payment_proof=uploaded_proof, plan=acc_plan, plan_name=pack )
+            # if users_investment_progress.objects.filter(user=request.user).exists():
+            users_investment_progress.objects.all().filter(user=request.user).update_or_create(user=request.user, amount_deposited = amount_deposit, account_type=acc_type, ROI=interest, proof=uploaded_proof, plan=acc_plan, package=pack, life_span=span )
+
+            mail_sending()# sending Admin email for deposit alert
+
+            # user_profile = packform.save()
+            # user_profile.save()
+            return redirect('dashboard')
+    else:
+        packform = smart_form()
+
+    context = {
+        'packform':packform,
+    }   
+    # return render(request, 'gentannieApp/dash/dash_make_deposit.html', context)
+    return render(request, 'gentannieApp/dash/make_smart_deposit.html', context)
+
+def super_pack(request):
+    user_pack = super(username=request.user)
+    if request.method == 'POST':
+        packform = super_form(request.POST, request.FILES, instance=user_pack)
+        if packform.is_valid():
+            users_investment_progress.objects.filter(user=request.user)
+
+            acc_plan = user_pack.plan_name
+            acc_type = user_pack.account_type
+            uploaded_proof = user_pack.payment_proof
+            pack = user_pack.plan
+
+            if pack ==  'super':
+                span = '9 months'
+            elif pack ==  'supreme':
+                span = '9 months'
+
+            if acc_plan ==  diamond:
+                amount_deposit = 400000
+            elif acc_plan == Ruby:
+                amount_deposit = 600000
+            elif acc_plan == peal:
+                amount_deposit = 700000
+            elif acc_plan ==  emerald:
+                amount_deposit = 800000
+            elif acc_plan == Jasper:
+                amount_deposit = 900000
+
+            # ******** Acc type Logics *******
+            if acc_type == unlocked:
+                interest = amount_deposit * 0.25
+                time_stamp = timedelta(days = 30 )
+            elif acc_type == locked:
+                interest = int(amount_deposit) * 0.9
+                time_stamp = timedelta(days = 30 * 3)
+
+            future_time = datetime.now() + time_stamp
+            super.objects.update_or_create(username=request.user, amount_deposited=amount_deposit, account_type=acc_type, ROI=interest, plan_name=pack, plan=acc_plan, payment_proof=uploaded_proof, )
+            users_investment_progress.objects.all().filter(user=request.user).update_or_create(user=request.user, amount_deposited = amount_deposit, account_type=acc_type, ROI=interest, proof=uploaded_proof, plan=acc_plan, package=pack, life_span=span )
+            
+            mail_sending()# sending Admin email for deposit alert
+
+            return redirect('dashboard')
+    else:
+        packform = super_form()
+
+    context = {
+        'packform':packform,
+    }   
+    return render(request, 'gentannieApp/dash/dash_make_deposit.html', context)
+    # return render(request, 'gentannieApp/dash/make_super_deposit.html', context)
+
+def supreme_pack(request):
+    user_pack = supreme(username=request.user)
+    
+    if request.method == 'POST':
+        packform = supreme_form(request.POST, request.FILES, instance=user_pack)
+        if packform.is_valid():
+            users_investment_progress.objects.filter(user=request.user)
+
+            acc_plan = user_pack.plan_name
+            pack = user_pack.plan
+            uploaded_proof = user_pack.payment_proof
+
+            if pack ==  'supreme':
+                span = '9 months'
+            else:
+                span = '9 months'
+            if acc_plan ==  Wale:
+                amount_deposit = 1000000
+            else:
+                amount_deposit = 2000000
+
+            interest = amount_deposit * 0.15
+            future_time = datetime.now() + timedelta(days = 30)
+
+            supreme.objects.update_or_create(username=request.user, amount_deposited=amount_deposit, ROI=interest, plan_name=pack, plan=acc_plan, payment_proof=uploaded_proof, )
+            users_investment_progress.objects.all().filter(user=request.user).update_or_create(user=request.user, amount_deposited = amount_deposit, ROI=interest, proof=uploaded_proof, plan=acc_plan, package=pack, life_span=span )            
+            # sending Admin email for deposit alert
+            mail_sending()
+
+            # user_profile = packform.save()
+            # user_profile.save()
+            return redirect('dashboard')
+    else:
+        packform = supreme_form()
+
+    context = {
+        'packform':packform,
+    }   
+    
+    return render(request, 'gentannieApp/dash/dash_make_deposit.html', context)
+    # return render(request, 'gentannieReferal/dash/dash_profile.html', context)
+
+
+# ************ withdrawal request **************
+def user_withdrawal_page(request):
+    user_progress_feed = users_investment_progress.objects.all().filter(user=request.user)
+
+    smart_data = smart.objects.all().filter(username=request.user)
+    super_data = super.objects.all().filter(username=request.user)
+    supreme_data = supreme.objects.all().filter(username=request.user)
+
+    context = {
+        'user_progress_feed':user_progress_feed,
+        'smart_data':smart_data,
+        'super_data':super_data,
+        'supreme_data':supreme_data
+        }
+    return render(request,'gentannieApp/dash/withdrawal_page.html',context)
+
+def smart_withdrawal(request):
+    smart_opt = smart(username=request.user)
+    if request.method == 'POST':
+        smart_withdraw_form = smart_withdrawalForm(request.POST, instance=smart_opt)
+        if smart_withdraw_form.is_valid:
+            req_user_option = smart.objects.filter(username=request.user)
+            req_user_option.update(request=True)
+
+            smart_pull_request = users_investment_progress.objects.filter(user=request.user).filter(package='smart')
+            smart_pull_request.update(withdraw_request=True)
+
+            smart_opt = smart(username=request.user)
+            mail_sending()#******** sends Admin alert for user withdrawal request ************
+
+            return redirect('dashboard')
+    else:
+        smart_withdraw_form = smart_withdrawalForm()
+
+    user_progress_update = users_investment_progress.objects.filter(user=request.user).filter(package='smart')
+    current_date = datetime.now()
+    today = date.isoformat(current_date)
+
+    date_check = users_investment_progress.objects.all().filter(user=request.user).filter(package='smart').filter(Due_date__lte=datetime.isoformat(current_date)).values().exists()
+    context = {
+        'smart_withdraw_form':smart_withdraw_form,
+        'user_progress_update':user_progress_update,
+        'today':today,
+        'date_check':date_check,
+
+    }
+    return render(request, 'gentannieApp/dash/smart_withdrawal_page.html',context)
+
+def super_withdrawal_page(request):
+    super_opt = super(username=request.user)
+    if request.method == 'POST':
+        super_withdraw_form = super_withdrawalForm(request.POST, instance=super_opt)
+        if super_withdraw_form.is_valid:
+            req_user_option = super.objects.filter(username=request.user)
+            req_user_option.update(request=True)
+
+            super_pull_request = users_investment_progress.objects.filter(user=request.user).filter(package='super')
+            super_pull_request.update(withdraw_request=True)
+
+            super_opt = super(username=request.user)
+            mail_sending()#******** Alerts Admin for withdrawal request *******
+
+            return redirect('dashboard')
+    else:
+        super_withdraw_form = super_withdrawalForm()
+    user_progress_update = users_investment_progress.objects.filter(user=request.user).filter(package='super')
+
+    current_date = datetime.now()
+    today = date.isoformat(current_date)
+    date_check = users_investment_progress.objects.all().filter(user=request.user).filter(package='super').filter(Due_date__lte=datetime.isoformat(current_date)).values().exists()
+    context = {
+        'super_withdraw_form':super_withdraw_form,
+        'user_progress_update':user_progress_update,
+        'today':today,
+        'date_check':date_check
+    }
+    return render(request, 'gentannieApp/dash/super_withdrawal_page.html',context)
+
+def supreme_withdrawal_page(request):
+    supreme_opt = supreme(username=request.user)
+    if request.method == 'POST':
+        supreme_withdraw_form = supreme_withdrawalForm(request.POST, instance=supreme_opt)
+        if supreme_withdraw_form.is_valid:
+            req_user_option = supreme.objects.filter(username=request.user)
+            req_user_option.update(request=True)
+
+            supreme_pull_request = users_investment_progress.objects.filter(user=request.user).filter(package='supreme')
+            supreme_pull_request.update(withdraw_request=True)
+
+            supreme_opt = supreme(username=request.user)
+            mail_sending()#******** Alerts Admin for withdrawal request *******
+
+            return redirect('dashboard')
+    else:
+        supreme_withdraw_form = supreme_withdrawalForm()
+    user_progress_update = users_investment_progress.objects.filter(user=request.user).filter(package='supreme')
+    current_date = datetime.now()
+    today = date.isoformat(current_date)
+    date_check = users_investment_progress.objects.all().filter(user=request.user).filter(package='supreme').filter(Due_date__lte=datetime.isoformat(current_date)).values().exists()
+    context = {
+        'supreme_withdraw_form':supreme_withdraw_form,
+        'user_progress_update':user_progress_update,
+        'today':today,
+        'date_check':date_check
+    }
+    return render(request, 'gentannieApp/dash/supreme_withdrawal_page.html',context)
+
+# **************** / .withdrawal request *****************
+
+# # *************** user_payment comfirmation ********************
+# def payment_comfirm(request):
+#     payment_comfirmed = payment_comfirm(username=request.user)
+#     pay_comfirmForm()
+#     if request.method=='POST':
+#         comfirmed_form = pay_comfirmForm(request.POST, instance=payment_comfirmed)
+#         if comfirmed_form.is_valid(commit=False):
+#             pass
+
+
+# # *************** user_payment comfirmation ********************
+
+def notification(request):
+    context={}
+    return render(request,'gentannieApp/dash/dash_notification.html', context)
+
+def account_detail_profile(request):
+    user_prof = users_details(username=request.user)
+    if request.method == 'POST':
+        profile_form = users_detailsForm(request.POST, request.FILES, instance=user_prof)
+        if profile_form.is_valid():
+            # profile_form.cl
+            user_details = profile_form.save(commit=False)
+            user_details.save()
+ 
+        return redirect('dashboard')
+    else:
+        profile_form = users_detailsForm()
+
+    details = users_details.objects.all().filter(username=request.user)
+    profile_check = users_details.objects.all().filter(username=request.user).values()
+    profile_list = users_details.objects.all().values_list
+
+    print(profile_list)
+    rendered_form = ''
+    button_diabler = ''
+    Display_btn = ''
+    if profile_check.exists():
+        button_diabler = 'hidden'
+        Display_btn = 'Profile updated'
+        print('am present sir')
+    else:
+        rendered_form = users_detailsForm()
+        Display_btn = 'submit'
+        print('not in list')
+
+    profile_context={
+        # 'profile_form':profile_form,
+        'rendered_form':rendered_form,
+        'details':details,
+        'button_diabler':button_diabler,
+        'Display_btn':Display_btn
+    }
+    return render(request,'gentannieApp/dash/dash_profile.html',profile_context)
+
+def mail_check():
+    dateDue = users_investment_progress.objects.all()
+    # due_date = dateDue.get()
+    due_date = date.today
+    filtered_date = users_investment_progress.objects.filter(Due_date = str(due_date))
+
+    # if filtered_date:
+    print (filtered_date.user )
+# ******** / .investment plans Views *********
+
+
+def plan_info_smart(request):
+    return render(request, 'gentannieReferal/smart_plan_info.html', None)
+
+def plan_info_super(request):
+    return render(request, 'gentannieReferal/super_plan_info.html', None)
+
+def plan_info_supreme(request):
+    return render(request, 'gentannieReferal/supreme_plan_info.html', None)
+
+
+def logoutUser(request):
+    logout(request)
+    messages.info(request, "You have logged Out!!!")
+    return redirect("login")
+
+def deposit_sending():
+    EMAIL_HOST_USER = 'anthonix1759@gmail.com'
+    subject = "A user just made a payed for a plan"
+    message = 'Admin a user is requesting comfirmation of pay'
+    # recepient = ['informaniac665@gmail.com']
+    try:
+        send_mail(subject,
+            message, 'support@gentannie.com', ['support@gentannie.com'], fail_silently=False)
+    except:
+        print('MAIL not sent')
+
+def mail_sending():
+    EMAIL_HOST_USER = 'anthonix1759@gmail.com'
+    subject = "{{asked_user}} user is Due for payment"
+    message = 'Admin a user is requesting a withdrawal'
+    # recepient = ['informaniac665@gmail.com']
+    try:
+        send_mail(subject,
+            # message, 'informaniac665@gmail.com', ['anthonix1759@gmail.com'], fail_silently=False)
+            message, 'informaniac665@gmail.com', ['support@gentannie.com'], fail_silently=False)
+    except:
+        print('MAIL not sent')
+
+def scheduled_withdrawal():
+    filtered_data = users_investment_progress.objects.all().filter(deposit_status=comfirmed).filter(hault=False).filter(account_type=locked)
+    super_filtered_data = users_investment_progress.objects.all().filter(deposit_status=comfirmed).filter(hault=False).filter(account_type=unlocked)
+    supreme_filtered_data = users_investment_progress.objects.all().filter(deposit_status=comfirmed).filter(hault=False).filter(account_type='NONE')
+
+    # filtered_data_unlocked.update(Due_date=datetime.now()+ timedelta(days= 30))
+    # filtered_data_unlocked.update(Due_date=datetime.now()+ timedelta(days= 30))
+
+    filtered_data.update(Due_date=datetime.now()+ timedelta(days= (30*3)),hault=True )
+    super_filtered_data.update(Due_date=datetime.now()+ timedelta(days=30),hault=True)
+    supreme_filtered_data.update(Due_date=datetime.now()+ timedelta(days=30))
+
+    # filtered_data_unlocked = users_investment_progress.objects.all().filter(deposit_status = comfirmed).filter(account_type=unlocked).filter(hault=False)
+
+    # current_date = datetime.now()
+    current_date = date.today()
+    # payment_filters = users_investment_progress.objects.all().filter(deposit_status=comfirmed).filter(Due_date__lte=date.isoformat(current_date))
+
+    # payment_filters.update(payment_status=payment_declined)
+
+
+def transact_history(request):
+    context={}
+    return render(request, 'gentannieApp/dash/dash_trans_history.html', context)
+
+
+def comfirm_smart_payment_page(request):
+    if request.method=='POST':
+        comfirmed_form = smart_pay_comfirmForm(request.POST)
+        if comfirmed_form.is_valid():
+            smart_comfirm_check = users_investment_progress.objects.all().filter(user=request.user).filter(package='smart').filter(withdraw_request=True )
+            smart_comfirm_check.update(hault=True,withdraw_request=False,)
+                
+            # ********** keeping track of user payment count ************
+            # smart_count_locked = users_investment_progress.objects.all().filter(user=request.user).filter(package='smart').filter(account_type=locked)
+            # counted = 0
+            # smart_count_locked.update(count=(counted+3))
+
+            # smart_count_unlocked = users_investment_progress.objects.all().filter(user=request.user).filter(package='smart').filter(account_type=locked)
+            # smart_count_unlocked.update(count=(counted+1))
+            # ********** / .keeping track of user payment count ************
+
+
+        return redirect('dashboard')
+    else:
+        comfirmed_form = smart_pay_comfirmForm()
+
+    smart_progress_feed = users_investment_progress.objects.all().filter(user=request.user).filter(package='smart')
+    context = {
+        'comfirmed_form':comfirmed_form,
+        "smart_progress_feed":smart_progress_feed
+    }
+    return render(request,'gentannieApp/dash/smart_pay_comfirm.html', context)
+
+def comfirm_super_payment_page(request):
+    if request.method=='POST':
+        comfirmed_form = super_pay_comfirmForm(request.POST)
+        if comfirmed_form.is_valid():
+            smart_comfirm_check = users_investment_progress.objects.all().filter(user=request.user).filter(package='super').filter(withdraw_request=True )
+            smart_comfirm_check.update(hault=False,withdraw_request=False)
+
+        return redirect('dashboard')
+    else:
+        comfirmed_form = super_pay_comfirmForm()
+
+    super_progress_feed = users_investment_progress.objects.all().filter(user=request.user).filter(package='super')
+    context = {
+        'comfirmed_form':comfirmed_form,
+        'super_progress_feed':super_progress_feed
+    }
+    return render(request,'gentannieApp/dash/super_pay_comfirm.html', context)
+
+def comfirm_supreme_payment_page(request):
+    if request.method=='POST':
+        comfirmed_form = supreme_pay_comfirmForm(request.POST)
+        if comfirmed_form.is_valid():
+
+            # ********** keeping track of user payment count ************
+            counted = 0
+            # counted = users_investment_progress.objects.all().filter(user=request.user).filter(package='supreme').filter(deposit_status=comfirmed)
+            supreme_count = users_investment_progress.objects.all().filter(user=request.user).filter(package='superme').filter(deposit_status=comfirmed)
+            supreme_count.update(count= counted+1 )
+
+            # supreme_count_unlocked = users_investment_progress.objects.all().filter(user=request.user).filter(package='smart').filter(account_type=locked)
+            # supreme_count_unlocked.update(count=(counted+1))
+            # ********** / .keeping track of user payment count ************
+
+            supreme_comfirm_check = users_investment_progress.objects.all().filter(user=request.user).filter(package='supreme').filter(withdraw_request=True )
+            supreme_comfirm_check.update(hault=False,withdraw_request=False)
+
+        return redirect('dashboard')
+    else:
+        comfirmed_form = supreme_pay_comfirmForm()
+    
+    supreme_progress_feed = users_investment_progress.objects.all().filter(user=request.user).filter(package='supreme')
+    context = {
+        'comfirmed_form':comfirmed_form,
+        "supreme_progress_feed":supreme_progress_feed
+    }
+    return render(request,'gentannieApp/dash/supreme_pay_comfirm.html', context)
+
+    

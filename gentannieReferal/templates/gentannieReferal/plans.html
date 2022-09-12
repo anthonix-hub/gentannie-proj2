@@ -1,0 +1,239 @@
+
+{% load static %}
+
+<div class="px-10 mt-20 text-2xl md:px-20 md:text-4xl" id="plans">
+    Investment packages
+</div>
+<div class="px-10 mt-2 text-md md:text-2xl md:px-20">
+    All Investment plans have a life span of nine (9) months
+</div>
+<div class="grid-cols-12 px-3 mx-auto -mt-20 justify- lg:px-10 lg:mt-14 md: ">
+    <div class="gap-10 px-1 py-10 mx-auto mt-10 lg:px-20 justify-betw lg:flex lg:px-5 md:px-48">
+        <div data-aos="fade-left"  data-aos-offset="500" data-aos-duration="500" class="col-span-4 py-5 mt-5 rounded-md shadow-lg lg:px-10 md:px-20"><!-- smart plan container-->
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" style="text-decoration:none" >
+                    <div class="flex items-center gap-4 px-2 py-2 text-2xl text-white capitalize rounded-full shadow-2xl lg:text-3xl" style="background-color:#508a00">
+                        <img src="{% static 'img/icons/icons8_growing_money.png' %}" class="h-10 p-1 bg-white rounded-full lg:h-14">
+                        <div>
+                            smart
+                        </div>
+                    </div>
+                </a>
+            {% else %}
+                <a href="signup " style="text-decoration:none" >
+                    <div class="flex items-center gap-4 px-2 py-2 text-2xl text-white capitalize rounded-full shadow-2xl lg:text-3xl" style="background-color:#508a00">
+                        <img src="{% static 'img/icons/icons8_growing_money.png' %}" class="h-10 p-1 bg-white rounded-full lg:h-14">
+                        <div>
+                            smart
+                        </div>
+                    </div>
+                </a>
+            {% endif %}            
+            <div class="py-5 mt-5 bg-gray-200 shadow-2xl lg:px-10">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="shadow-md accordion-item lg" >
+                        <h2 class="bg-green-100 accordion-header" id="flush-headingOne">
+                            <button class=" accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                <div class="text-lg lg:px-8 lg:text-2xl text-bold">
+                                    <img src="{% static 'img' %}" alt="">
+                                    Unlocked Smart
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse bg-gray-50 lg:px-3" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <ol class="px-2 text-sm text-center text-gray-600 shadow-sm lg:px-3 lg:text-md">
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        Basic 20k monthly ROI 7k
+                                    </li>
+                                    <li class="px-3 py-2 shadow-md bg-">
+                                        Standard 40k monthly ROI 14k
+                                    </li>
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        premium 60k monthly ROI 21k
+                                    </li>
+                                    <li class="px-3 py-2 shadow-md bg-">
+                                        Bronze 80k monthly ROI 28k
+                                    </li>
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        Super bronze 100k monthly ROI 35k
+                                    </li>
+                                    <li class="px-3 py-2 shadow-md bg-">
+                                        Silver 120k monthly ROI 42k
+                                    </li>
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        Super silver 140k monthly ROI 49k
+                                    </li>
+                                    <li class="px-3 py-2 shadow-md bg-">
+                                        Gold 200k monthly ROI 70k
+                                    </li>
+                                </ol>                             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shadow-md accordion-item">  
+                        <h2 class="mt-2 bg-green-100 accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                <div class="text-lg lg:px-8 lg:text-2xl text-bold">
+                                    Locked Smart
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse bg-gray-50" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <ol class="px-2 text-sm text-center text-gray-600 shadow-sm lg:px-3 lg:text-md">
+                                    <li class="px-3 py-2 bg-green-100 shadow-md" data-toggle="modal" data-target="#exampleModal" >
+                                        <!-- <button> -->
+                                            Basic 20k quarterly ROI 24k
+                                        <!-- </button> -->
+                                    </li>
+                                    <li class="px-3 py-2 shadow-md bg-">
+                                        Standard 40k quarterly ROI 48k
+                                    </li>
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        Premium 60k quarterly ROI 72k
+                                    </li>
+                                    <li class="px-3 py-2 shadow-md bg-">
+                                        Bronze 80k quarterly ROI 96k
+                                    </li>
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        Super bronze 100k quarterly ROI 120k
+                                    </li>
+                                    <li class="px-3 py-2 shadow-md bg-">
+                                        Silver 120k quarterly ROI 144k
+                                    </li>
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        Super Silver 140k quarterly ROI 168k
+                                    </li>
+                                    <li class="px-3 py-2 shadow-md bg-">
+                                        Gold 200k quarterly ROI 240k
+                                    </li>
+                                </ol>                             
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            <div>
+            </div>  
+        </div>
+        <div data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0" class="col-span-4 py-5 mt-5 rounded-md shadow-lg lg:px-10 md:px-20"><!-- super plan container -->
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" style="text-decoration:none" >
+                    <div class="flex items-center gap-4 px-2 py-2 text-2xl text-white capitalize rounded-full shadow-2xl lg:text-3xl" style="background-color:#508a00">
+                        <img src="{% static 'img/icons/icons8_growing_money.png' %}" class="h-10 p-1 bg-white rounded-full lg:h-14">
+                        <div>
+                            Super
+                        </div>
+                    </div>
+                </a>
+            {% else %}
+                <a href="signup" style="text-decoration:none" >
+                    <div class="flex items-center gap-4 px-2 py-2 text-2xl text-white capitalize rounded-full shadow-2xl lg:text-3xl" style="background-color:#508a00">
+                        <img src="{% static 'img/icons/icons8_growing_money.png' %}" class="h-10 p-1 bg-white rounded-full lg:h-14">
+                        <div>
+                            Super
+                        </div>
+                    </div>
+                </a>
+            {% endif %}
+            <div class="py-10 mt-5 bg-gray-200 shadow-2xl lg:px-10">
+                <div class=" accordion accordion-flush" id="accordionFlushExample2">
+                    <div class="shadow-md accordion-item" >
+                        <h2 class="bg-green-100 accordion-header" id="flush-heading2">
+                            <button class=" accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse2" aria-expanded="false" aria-controls="flush-collapseOne">
+                                <div class="text-lg lg:px-8 lg:text-2xl text-bold">
+                                    Unlocked super
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="flush-collapse2" class="accordion-collapse collapse bg-gray-50" aria-labelledby="flush-heading2" data-bs-parent="#accordionFlushExample2">
+                            <div class="accordion-body">
+                                <ol class="px-2 text-sm text-center text-gray-600 shadow-sm lg:px-10 lg:text-md">
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        Diamond 400k monthly ROI 100k
+                                    </li>
+                                    <li class="px-3 py-2 shadow-md bg-">
+                                        Ruby 600k monthly ROI 150k
+                                    </li>
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        Peal 700k monthly ROI 175k
+                                    </li>
+                                    <li class="px-3 py-2 shadow-md bg-">
+                                        Emerald 800k monthly ROI 200k
+                                    </li>
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        Jasper 900k monthly ROI 225k
+                                    </li>
+                                </ol>                             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shadow-md accordion-item">
+                        <h2 class="mt-2 bg-green-100 accordion-header" id="flush-heading3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse3" aria-expanded="false" aria-controls="flush-collapse3">
+                                <div class="text-lg lg:px-8 lg:text-2xl text-bold">
+                                    Locked super
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="flush-collapse3" class="accordion-collapse collapse bg-gray-50" aria-labelledby="flush-heading3" data-bs-parent="#accordionFlushExample2">
+                            <div class="accordion-body">
+                                <ol class="px-2 text-sm text-center text-gray-600 shadow-sm lg:px-10 lg:text-md">
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        Diamond 400k quarterly ROI 360k
+                                    </li>
+                                    <li class="px-3 py-2 shadow-md bg-">
+                                        Ruby 600k quarterly ROI 540k
+                                    </li>
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        Peal 700k quarterly ROI 630k
+                                    </li>
+                                    <li class="px-3 py-2 shadow-md bg-">
+                                        Emerald 800k quarterly ROI 720k
+                                    </li>
+                                    <li class="px-3 py-2 bg-green-100 shadow-md">
+                                        Jasper 900k quarterly ROI 810k
+                                    </li>
+                                </ol>                             
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        <div data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine" class="col-span-4 py-5 mt-5 rounded-md shadow-lg lg:px-10 md:px-20">
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" style="text-decoration:none" >
+                    <div class="flex items-center gap-4 px-2 py-2 text-2xl text-white capitalize rounded-full shadow-2xl lg:text-3xl" style="background-color:#508a00">
+                        <img src="{% static 'img/icons/icons8_growing_money.png' %}" class="h-10 p-1 bg-white rounded-full lg:h-14">
+                        <div>
+                            Supreme
+                        </div>
+                    </div>
+                </a>
+            {% else %}
+                <a href="signup" style="text-decoration:none" >
+                    <div class="flex items-center gap-4 px-2 py-2 text-2xl text-white capitalize rounded-full shadow-2xl lg:text-3xl" style="background-color:#508a00">
+                        <img src="{% static 'img/icons/icons8_growing_money.png' %}" class="h-10 p-1 bg-white rounded-full lg:h-14">
+                        <div>
+                            Supreme 
+                        </div>
+                    </div>
+                </a>
+            {% endif %}
+            <div class="grid-cols-12 mt-10 text-lg text-center">
+                <div class="py-10 mt-5 bg-gray-200 shadow-2xl lg:px-10">
+                    <div class="px-3 py-3 mt-2 text-lg bg-green-100 shadow-2xl lg:px-3 lg:text-lg text-bold">
+                        Wale 1m ROI 150k
+                    </div>
+                    <div class="px-3 py-3 mt-2 text-lg bg-green-100 shadow-2xl lg:px-3 lg:text-lg text-bold">
+                        Patriot 2m ROI 300k
+                    </div>
+                </div>
+            </div>
+        </div>        
+
+    </div>
+</div>
+    

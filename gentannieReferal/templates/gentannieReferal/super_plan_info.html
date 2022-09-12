@@ -1,0 +1,124 @@
+{% load static %}
+{% load tailwind_filters %}
+
+<head>
+    {% include 'gentannieApp/dash/dash_head.html' %}
+    <title>gentannie | smart~withdrawal</title>
+</head>
+<body class="bg-gray-900">
+
+    <!-- sidebar -->
+    {% include 'gentannieApp/dash/dash_side.html' %}
+    <!-- sidebar ends -->
+    <div class="md:ml-60 ">
+        <!-- topnav -->
+        {% include 'gentannieApp/dash/dash_topnav.html' %}
+        <!-- / .topnav -->
+        
+        <div class="flex grid-cols-12">
+            <div class="px-4 py-10 mt-10 md:p-3 sm:px-10" id="main_content">
+                <div class="">
+                    <div class="py-5 text-lg text-white md:text-2xl ">
+                        <div class="flex items-center gap-2">
+                            <img src="{% static 'img/dash_icons/bank_building_50px_2.png' %} " alt="" class="h-6">
+                            Withdrawal section
+                        </div>
+                    </div>
+                    <div class="grid gap-4 lg:grid-cols-12 md:gap-2">
+                        <div class="px-6 py-6 mx-auto text-xs text-white bg-gray-800 rounded-lg lg:col-span-3 lg:h-48 xl:col-span-5 md:text-sm lg:h-72">
+                            <div class="px-5 py-1 sm:px-16 lg:px-5 ">
+                                <div class="flex gap-5 ">
+                                    <div class="text-gray-200">
+                                        {% for withdrawal_check in user_progress_update %}
+                                            {% if withdrawal_check.deposit_status == 'pending' %}
+                                                <h3>Deposit pending pending </h3>
+                                            {% else %}
+                                                {% comment %} {% if user_progress_update %}
+                                                {% endif %} {% endcomment %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% for date in user_progress_update %}
+                                            <div class="flex py-1 mt-10">
+                                                <div class="px-2 text-left text-md md:text-md">
+                                                    Next withdrawal for <b>{{ date.package }} </b>
+                                                </div>
+                                                
+                                                <div class="px-3 py-1 text-sm text-black bg-blue-300 md:text-lg py-300 text-bold rounded-2xl " id="demo{{date.id}}"></div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div><!--/ .withdrawal countdown -->
+                        </div>
+                        <div class="bg-gray-800 rounded-lg lg:col-span-9 xl:col-span-7">
+                            
+                                    today is <b>{{today}}</b>
+                            <div class="px-10 py-20 bg-gray-500 rounded-lg">
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                        {% for withdrawal_check in user_progress_update %}
+                                            {% if withdrawal_check.deposit_status == 'comfirmed' %}
+                                                {% if withdrawal_check.Due_date == today %}
+                                                    {{super_withdraw_form}}
+                                                    <button type="submit" class="px-4 py-1 bg-blue-200 shadow-lg rounded-2xl hover:shadow-2xl hover:bg-blue-400">
+                                                        Request {{withdrawal_check.package}}  withdrawal
+                                                    </button> 
+                                                {% else %}
+                                                    <div class="px-10 mt-5">
+                                                        <div class="p-2 px-10 py-1 text-center bg-red-400 shadow-lg select-none rounded-2xl cursor hover:shadow-2xl">
+                                                            {{ withdrawal_check.id }} withdrawal pending
+                                                        </div>
+                                                    </div>
+                                                {% endif %} 
+                                            {% endif %}
+                                    {% endfor %}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'script.js' %} "></script>
+    
+</body>
+</html>
+
+<script>
+<!-- var countDownDate = new Date("Mar 31, 2021 12:00:00").getTime();  -->
+{% for date in user_progress_update %}
+    var countDownDate{{date.id}} = new Date ("{{date.Due_date|date:'M d, Y H:m:s' }}").getTime()
+
+
+{% comment %} var countDownDate = new document.getElementById('due_date') {% endcomment %}
+{% comment %} console.log(countDownDate{{id}}) {% endcomment %}
+        
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate{{date.id}} - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo{{date.id}}").innerHTML = days + ":d " + hours + ":h "
+  + minutes + ":m " + seconds + ":s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo{{date.id}}").innerHTML = "Withdrawal Enabled";
+  }
+}, 1000);
+
+{% endfor %}
+</script>

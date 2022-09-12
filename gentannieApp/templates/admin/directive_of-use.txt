@@ -1,0 +1,4 @@
+---------))))))this folder should be placed inside the project-app's Template folder.((((((--------
+
+the css codes can be edited to suit the feel of the project UI color scheme.
+the folder name should be left as admin, and the file name as base_site.html

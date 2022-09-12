@@ -1,0 +1,131 @@
+{% load static %}
+{% load tailwind_filters %}
+
+<head>
+    {% include 'gentannieApp/dash/dash_head.html' %}
+    <link rel="stylesheet" href="{% static 'css/flipper/style.css' %} " ><!--***important**-->
+    <title>gentannie | smart~withdrawal</title>
+</head>
+<body class="bg-gray-900 select-none">
+
+    <!-- sidebar -->
+    {% include 'gentannieApp/dash/dash_side.html' %}
+    <!-- sidebar ends -->
+    <div class="md:ml-60 ">
+        <!-- topnav -->
+        {% include 'gentannieApp/dash/dash_topnav.html' %}
+        <!-- / .topnav -->
+        
+        <div class="flex grid-cols-12">
+            <div class="px-4 py-10 mt-10 md:p-3 sm:px-10" id="main_content">
+                <div class="">
+                    <div class="py-5 text-lg text-white md:text-2xl ">
+                        <div class="flex items-center gap-2">
+                            <img src="{% static 'img/dash_icons/bank_building_50px_2.png' %} " alt="" class="h-6">
+                            Withdrawal section
+                        </div>
+                    </div>
+                    <div class="grid gap-4 lg:grid-cols-12 md:gap-2 ">
+                    {% for withdrawal_checked in user_progress_update_bronze %}
+                        {% if date_check %}
+                            <div class="p-2 bg-gray-800 rounded-sm lg:col-span-9 xl:col-span-7">
+                                <div class="px-10 py-10 bg-gray-500 rounded-lg ">
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                            {% if withdrawal_checked.deposit_status == 'comfirmed' %}
+                                                {% if withdrawal_checked.withdraw_request == False %}<!--****withdrawal status checking ***-->
+                                                    {% if date_check %}
+                                                        <button type="submit" class="px-4 py-1 bg-blue-200 shadow-lg rounded-2xl hover:shadow-2xl hover:bg-blue-400">
+                                                            Request&nbsp;{{withdrawal_checked.plan}}&nbsp;withdrawal
+                                                        </button> 
+                                                    {% else %}
+                                                        <div class="px-10 mt-5">
+                                                            <div class="p-2 px-10 py-3 text-center bg-red-400 rounded-lg shadow-lg select-none cursor hover:shadow-2xl ">
+                                                                Locked&nbsp;withdrawal&nbsp;pending
+                                                            </div>
+                                                        </div>
+                                                    {% endif %} 
+                                                {% else %}
+                                                    <div class="px-3 py-5 text-sm text-center text-gray-900 bg-green-500 rounded shadow-2xl md:text-lg rounded-tl-3xl ">
+                                                        <span class="text-lg ">your withdrawal request has been submitted.</span><br> <b>Please</b> wait while we process your payment.
+                                                    </div>
+                                                {% endif %}<!--****/ .withdrawal status checking ***-->
+                                            {% else %}
+                                                <span class="text-sm text-center ">
+                                                    please wait ...<br>
+                                                    Pay out currently in process for another plan<br>
+                                                </span>
+                                                <a href="{% url 'bronzePlan_Locked_cash_out_page' %}">
+                                                    <span class="bg-green-500 py-1 shadow-md rounded hover:bg-green-600 hover:shadow-xl justify-center flex">
+                                                        Check withdrawal page
+                                                    </span>
+                                                </a>
+                                            {% endif %}<!--****/ .deposit status checking ***-->
+                                    </form>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="px-6 py-6 mx-auto text-xs text-white bg-gray-800 rounded-lg lg:col-span-3 lg:h-48 xl:col-span-5 md:text-sm lg:h-72">
+                                <div class="flex justify-end -mt-6 ">
+                                    withdrawed&nbsp;count: {{withdrawal_checked.count}}<br>
+                                    ID: {{withdrawal_checked.id}}
+                                </div>
+                                <div class="px-5 py-1 sm:px-16 lg:px-5 ">
+                                    <div class="flex gap-5 ">
+                                        <div class="text-gray-200">
+                                            {% if withdrawal_checked.deposit_status == 'pending' %}
+                                                <h3>pending</h3>
+                                            {% else %}
+                                                {% comment %} {% if user_progress_update %}
+                                                {% endif %} {% endcomment %}
+                                            {% endif %}
+                                            <div class="flex py-1 mt-10">
+                                                <div class="px-2 text-left text-md md:text-md">
+                                                    Next withdrawal for <b>{{ withdrawal_checked.package }} ~{{ withdrawal_checked.plan }}</b>
+                                                </div>
+                                            </div>
+                                            {% if date_check %}
+                                                <div class="py-6 mt-12">
+                                                    Processing ...
+                                                </div>
+                                            {% else %}
+                                                <!--***countdown flipper**-->
+                                                <div class="container pt-5 pb-5 text-4xl">
+                                                    <div class="text-4xl flipper" 
+                                                        data-reverse="true" 
+                                                        data-datetime="{{withdrawal_checked.Due_date}} 00:00:00"
+                                                        data-template="ddd|HH|ii|ss" 
+                                                        data-labels="Days|Hours|Minutes|Seconds" 
+                                                        id="myFlipper{{withdrawal_checked.id}}"
+                                                        >
+                                                    </div>
+                                                </div>
+                                                <!--**********-->
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div><!--/ .withdrawal countdown -->
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<!--***************************************-->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>
+<script src="{% static 'js/flipper/jquery.flipper-responsive.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+{% for flip_check in user_progress_update_bronze %}
+    <script>
+        jQuery(function ($) {
+        $('#myFlipper{{flip_check.id}}').flipper('init');
+        });
+    </script>
+{% endfor %}
+<script src="{% static 'script.js' %} "></script>

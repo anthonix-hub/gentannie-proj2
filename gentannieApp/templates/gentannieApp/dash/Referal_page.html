@@ -1,0 +1,124 @@
+{% load static %}
+{% load tailwind_filters %}
+<head>
+    {% include 'gentannieApp/dash/dash_head.html' %}
+    <title>gentannie | dashboard~verification</title>
+</head>
+<body class="bg-gray-900">
+    <!-- sidebar -->
+    {% include 'gentannieApp/dash/dash_side.html' %}
+    <!-- sidebar ends -->
+    <div class="md:ml-60 ">
+        <!-- topnav -->
+        {% include 'gentannieApp/dash/dash_topnav.html' %}
+        <!-- / .topnav -->
+    
+        <div class="flex grid-cols-12">
+            <div class="px-4 py-10 mt-10 md:p-3 sm:px-10" id="main_content">
+                <div class="">
+                    <div class="py-5 text-lg text-white md:text-2xl ">
+                        <div class="flex items-center gap-2">
+                            <img src="{% static 'img/dash_icons/upload_document_50px_2.png' %} " alt="" class="h-6">
+                            Referal section
+                        </div>
+                    </div>
+                    <div class="grid gap-4 lg:grid-cols-12 md:gap-2">
+                        <div class="px-6 py-6 mx-auto text-sm text-white bg-gray-800 rounded-lg lg:col-span-3 lg:h-48 xl:col-span-5 xl:h-full xl:py-16 md:text-md">
+                            You can Refer friends to the platform and get rewarded.
+                            All you have to do is share your Refer link to them. and you will be rewarded with &#8358;1000 for every successful registrastion done through Your referal link.<br><br>
+                            <b class="text-red-500">Note:</b> you can only request for withdrawal from your referral bonus when you have refered 10 persons and above
+                        </div>
+                        <div class="bg-gray-800 rounded-lg lg:col-span-9 xl:col-span-7">
+                        <div class="px-10 mt-5 text-white">
+                           Copy your referal code to share
+                        </div>
+                            <div class="px-5 py-1 sm:px-16 lg:px-5">
+                                <div class="p-5 mt-3 text-red-300 bg-gray-300 shadow-2xl shadow-inner lg:px-5 rounded-2xl">
+                                    <div class="py-8 lg:px-10 ">
+                                        <!-- ********** -->
+                                        <div class="pb-10 ">
+                                            {% if user_investment_check %}
+                                                {% for prof in user_profile %}
+                                                    <div href="/{{prof.code}}" id='copyTarget' class="p-2 text-blue-400 border-2 rounded-lg rounded-r-none outline-none select-copy" > 
+                                                        https://www.gentannie.com/{{prof.code}}
+                                                    </div>
+                                                    <span id='copyButton' class="h-10 p-2 text-white bg-blue-400 rounded-md rounded-l-none shadow-lg cursor-pointer text-md hover:shadow-2xl hover:text-black hover:bg-blue">
+                                                        COPY
+                                                    </span>
+                                                {% endfor %}
+                                            {% else %}
+                                            </div>
+                                            <!-- ******* referral code msg ****** -->
+                                            <div class="text-center text-gray-800 tex-2xl">
+                                                Pay for a plan to activate your referral code
+                                            </div>
+                                            <!--**********************************-->
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'script.js' %} "></script>
+</body>
+</html>
+
+<script>
+    document.getElementById("copyButton").addEventListener("click", function() {
+      copyToClipboard(document.getElementById("copyTarget"));
+    });
+
+    function copyToClipboard(elem) {
+      // create hidden text element, if it doesn't already exist
+    var targetId = "_hiddenCopyText_";
+    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+    var origSelectionStart, origSelectionEnd;
+    if (isInput) {
+        // can just use the original source element for the selection and copy
+        target = elem;
+        origSelectionStart = elem.selectionStart;
+        origSelectionEnd = elem.selectionEnd;
+    } else {
+        // must use a temporary form element for the selection and copy
+        target = document.getElementById(targetId);
+        if (!target) {
+          var target = document.createElement("textarea");
+          target.style.position = "absolute";
+          target.style.left = "-9999px";
+          target.style.top = "0";
+          target.id = targetId;
+          document.body.appendChild(target);
+        }
+        target.textContent = elem.textContent;
+    }
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+
+    // copy the selection
+    var succeed;
+    try {
+          succeed = document.execCommand("copy");
+    } catch(e) {
+        succeed = false;
+    }
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
+
+    if (isInput) {
+        // restore prior selection
+        elem.setSelectionRange(origSelectionStart, origSelectionEnd);   
+    } else {
+        // clear temporary content
+        target.textContent = "";
+    }
+    return succeed;
+  }
+</script><br>   
